@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBM Bob – Agent Governance</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <section class="slide caps scroll" aria-label="Agent Governance">
+    <h2>Agent Governance</h2>
+    <p class="sub">Proactive guardrails, policy enforcement, and permission scoping for AI agents.</p>
+
+    <div class="grid" style="grid-template-columns: repeat(2, 1fr);">
+      <div class="card blue">
+        <h3>A. Real-Time Policy Enforcement</h3>
+        <p>Pre-execution lifecycle hooks evaluate actions before anything runs or reaches the model:</p>
+        <ul class="harness-pills">
+          <li><span class="pill blue">PreToolUse</span> Intercepts and blocks tool calls or stop unauthorized commands</li>
+          <li><span class="pill blue">UserPromptSubmit</span> Inspects user prompts and rejects policy violations before any LLM inference occurs.</li>
+        </ul>
+      </div>
+
+      <div class="card blue">
+        <h3>B. Mode-Based Tool Permissions &amp; Scoping</h3>
+        <p>Granular restriction of agent capabilities based on active persona and task context:</p>
+        <ul class="harness-pills">
+          <li><span class="pill blue">Custom Modes</span> Restrict tool group access per persona (e.g., Read-only vs. Edit vs. Command execution).</li>
+          <li><span class="pill blue">Mode Rules</span> Scoped rule files define strict behavioral boundaries for specific agents.</li>
+        </ul>
+      </div>
+
+      <div class="card blue">
+        <h3>C. Human-in-the-Loop Approval Controls</h3>
+        <p>Explicit human supervision gates all state-changing or external operations:</p>
+        <ul class="harness-pills">
+          <li><span class="pill blue">Tool Approval Prompts</span> Require manual confirmation or task-specific overrides before commands or file edits execute.</li>
+          <li><span class="pill blue">Editable Commands</span> Developers can inspect and modify proposed shell commands directly in the approval UI before running.</li>
+        </ul>
+      </div>
+
+      <div class="card blue">
+        <h3>D. Version-Controlled Guardrails</h3>
+        <p>Shared, transparent policies versioned alongside your software delivery lifecycle:</p>
+        <ul class="harness-pills">
+          <li><span class="pill blue">AGENTS.md</span> Project-level conventions, architecture constraints, and tech stack guidelines.</li>
+          <li><span class="pill blue">.bob/rules/</span> Team-wide standards version-controlled in Git, ensuring identical guardrails across all contributors.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Enterprise Governance Section -->
+    <div class="harness-group">
+      <span class="harness-group-label">Enterprise-Scale Governance &amp; Centralized Control</span>
+      <div class="card blue">
+        <h3>E. Enterprise-Scale Centralized Enforcement</h3>
+        <p>Tamper-proof policies managed centrally so individual users cannot tweak hooks, disable approvals, or bypass rules:</p>
+        <ul class="harness-pills" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2vh 2vw;">
+          <li><span class="pill blue">MDM &amp; Read-Only Global Settings</span> Global config managed via Intune/Jamf/Ansible; global hooks cannot be overridden or disabled by workspace settings.</li>
+          <li><span class="pill blue">Remote Zero-Trust Policy Engines</span> HTTP PreToolUse/UserPromptSubmit hooks route decisions to centralized policy engines (e.g. Open Policy Agent) where logic cannot be inspected or altered locally.</li>
+          <li><span class="pill blue">CODEOWNERS &amp; Protected Branches</span> AGENTS.md changes in repositories strictly require security and architecture team approvals in PRs.</li>
+          <li><span class="pill blue">Enterprise AI Gateway &amp; SIEM</span> Central egress proxy enforces DLP, secret scanning, and automated audit streaming to Splunk/Datadog regardless of client state.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <nav class="nav" aria-label="Slide navigation">
+    <a rel="prev" aria-label="Previous slide" href="07-context-window-management.html">&#8592;</a>
+    <span>8 / 11</span>
+    <a rel="next" aria-label="Next slide" href="09-tool-comparison.html">&#8594;</a>
+  </nav>
+
+  <script src="nav.js"></script>
+</body>
+
+</html>

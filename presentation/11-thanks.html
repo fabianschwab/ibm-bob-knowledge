@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBM Bob – Thank You</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .thanks-links {
+      position: absolute;
+      bottom: 10vh;
+      left: 50%;
+      transform: translateX(-50%);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5vh 2vw;
+      font-size: clamp(11px, 1vw, 14px);
+      color: var(--text-subtle);
+    }
+
+    .thanks-links li::before {
+      content: "›";
+      margin-right: 0.4em;
+      color: var(--link);
+    }
+
+    .thanks-links a {
+      color: var(--text-subtle);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .thanks-links a:hover,
+    .thanks-links a:focus {
+      color: var(--link);
+      border-bottom-color: var(--link);
+      outline: none;
+    }
+
+    .internal-tag {
+      display: inline-block;
+      font-size: 0.7em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 1px 5px;
+      margin-left: 0.45em;
+      border-radius: 2px;
+      background: var(--control);
+      color: var(--text-muted);
+      vertical-align: middle;
+      line-height: 1.2;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .thanks-links a:hover .internal-tag,
+    .thanks-links a:focus .internal-tag {
+      background: var(--control-hover);
+      color: var(--text);
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="slide welcome" aria-label="Thank You">
+    <div class="logo">
+      <img src="assets/bob.png" alt="IBM Bob logo">
+      <div class="wordmark">IBM <span>Bob</span></div>
+    </div>
+    <h1>Thank you — Questions?</h1>
+    <!-- Subtle resource links at the bottom of the slide -->
+    <ul class="thanks-links" aria-label="Resources">
+      <li><a href="https://bob.ibm.com/docs/ide" target="_blank" rel="noopener">IBM Bob Documentation</a></li>
+      <li><a href="https://pages.github.ibm.com/ClientEngineering/bob-sizing-toolkit/#overview" target="_blank"
+          rel="noopener">IBM Bob sizing toolkit by ClientEngineering <span class="internal-tag">internal</span></a></li>
+      <li><a href="https://pages.github.ibm.com/ClientEngineering/bob-benchmark-toolkit/#overview" target="_blank"
+          rel="noopener">IBM Bob benchmark by ClientEngineering <span class="internal-tag">internal</span></a></li>
+      <li><a href="https://pages.github.ibm.com/devops-showcase-dach/bob-devops/?lang=en" target="_blank"
+          rel="noopener">IBM Bob DevOps showcase <span class="internal-tag">internal</span></a></li>
+      <li><a href="https://pages.github.ibm.com/ClientEngineering/bob-install-drive/#s1" target="_blank"
+          rel="noopener">IBM Bob install on-prem <span class="internal-tag">internal</span></a></li>
+      <li><a href="https://pages.github.ibm.com/ClientEngineering/bob-install-drive/#asbuilt" target="_blank"
+          rel="noopener">IBM Bob architecture <span class="internal-tag">internal</span></a></li>
+      <!-- ADD LINK HERE: <li><a href="URL">Label</a></li> -->
+      <!-- ADD LINK HERE: <li><a href="URL">Label</a></li> -->
+    </ul>
+  </section>
+  <nav class="nav" aria-label="Slide navigation">
+    <a rel="prev" aria-label="Previous slide" href="10-on-prem-architecture.html">&#8592;</a>
+    <span>11 / 11</span>
+    <a rel="next" class="disabled" aria-label="Next slide" href="#">&#8594;</a>
+  </nav>
+
+  <script src="nav.js"></script>
+</body>
+
+</html>

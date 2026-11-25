@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBM Bob On-Premise Air-Gapped Installation &amp; Setup Guide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* layout */
+      --sidebar-w: 260px;
+      --header-h: 56px;
+
+      /* light palette */
+      --bg: #ffffff;
+      --surface: #f7f8fa;
+      --border: #e5e7eb;
+      --text: #1f2328;
+      --muted: #57606a;
+      --accent: #0969da;
+      --code-bg: #f6f8fa;
+      --code-border: #d0d7de;
+      --header-bg: #161b22;
+      --header-fg: #e6edf3;
+      --header-border: #30363d;
+      --nav-label: #8c959f;
+      --pre-bg: #161b22;
+      --pre-border: #30363d;
+      --pre-fg: #e6edf3;
+      --lang-label-fg: #6e7681;
+      --copy-bg: #21262d;
+      --copy-border: #30363d;
+      --copy-fg: #8b949e;
+      --copy-hover-bg: #30363d;
+      --copy-hover-fg: #e6edf3;
+      --diagram-bg: #0d1117;
+      --warn-bg: #fff8c5;
+      --warn-border: #d4a72c;
+      --warn-text: #633;
+      --note-bg: #ddf4ff;
+      --note-border: #54aeff;
+      --note-text: #0a3069;
+      --caution-bg: #ffebe9;
+      --caution-border: #ff8182;
+      --caution-text: #82071e;
+      --tip-bg: #dafbe1;
+      --tip-border: #2da44e;
+      --tip-text: #0f5323;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --surface: #161b22;
+        --border: #30363d;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --accent: #58a6ff;
+        --code-bg: #161b22;
+        --code-border: #30363d;
+        --header-bg: #010409;
+        --header-fg: #e6edf3;
+        --header-border: #21262d;
+        --nav-label: #6e7681;
+        --pre-bg: #010409;
+        --pre-border: #21262d;
+        --pre-fg: #e6edf3;
+        --lang-label-fg: #6e7681;
+        --copy-bg: #21262d;
+        --copy-border: #30363d;
+        --copy-fg: #8b949e;
+        --copy-hover-bg: #30363d;
+        --copy-hover-fg: #e6edf3;
+        --diagram-bg: #010409;
+        --warn-bg: #2d2200;
+        --warn-border: #9e6a03;
+        --warn-text: #e3b341;
+        --note-bg: #0c2d6b;
+        --note-border: #1f6feb;
+        --note-text: #79c0ff;
+        --caution-bg: #2d0f10;
+        --caution-border: #da3633;
+        --caution-text: #ff7b72;
+        --tip-bg: #0a2d18;
+        --tip-border: #238636;
+        --tip-text: #56d364;
+      }
+    }
+
+    body {
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* ── Top bar ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: var(--header-bg);
+      color: var(--header-fg);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 12px;
+      z-index: 100;
+      border-bottom: 1px solid var(--header-border);
+    }
+    header h1 {
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── Sidebar ── */
+    nav {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      width: var(--sidebar-w);
+      bottom: 0;
+      overflow-y: auto;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    nav ul { list-style: none; }
+    nav li a {
+      display: block;
+      padding: 5px 20px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color .15s, border-color .15s, background .15s;
+    }
+    nav li a:hover, nav li a.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(9,105,218,.06);
+    }
+    nav li.section-label {
+      padding: 14px 20px 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--nav-label);
+    }
+
+    /* ── Main content ── */
+    main {
+      margin-left: var(--sidebar-w);
+      margin-top: var(--header-h);
+      padding: 40px 48px 80px;
+    }
+
+    /* ── Diagram section ── */
+    .diagram-section {
+      margin-bottom: 48px;
+    }
+    .diagram-section h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .diagram-frame {
+      width: 100%;
+      height: calc(100vh - var(--header-h) - 120px);
+      min-height: 500px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--diagram-bg);
+    }
+    .diagram-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .diagram-link {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .diagram-link a { color: var(--accent); }
+
+    /* ── Markdown content typography ── */
+    .md-content h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .md-content > p:first-of-type {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .md-content h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 48px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: calc(var(--header-h) + 16px);
+    }
+    .md-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 28px;
+      margin-bottom: 10px;
+      scroll-margin-top: calc(var(--header-h) + 16px);
+    }
+    .md-content p { margin-bottom: 14px; }
+    .md-content ul, .md-content ol {
+      margin: 0 0 14px 24px;
+    }
+    .md-content li { margin-bottom: 4px; }
+    .md-content li ul { margin-top: 4px; }
+
+    .md-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* inline code */
+    .md-content code {
+      font-family: "JetBrains Mono", "Cascadia Code", "Fira Code", ui-monospace, monospace;
+      font-size: 13px;
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+
+    /* code blocks */
+    .md-content pre {
+      background: var(--pre-bg);
+      border: 1px solid var(--pre-border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .md-content pre code {
+      font-family: "JetBrains Mono", "Cascadia Code", "Fira Code", ui-monospace, monospace;
+      font-size: 13px;
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--pre-fg);
+      line-height: 1.6;
+    }
+    .lang-label {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 11px;
+      color: var(--lang-label-fg);
+      font-family: ui-monospace, monospace;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 48px;
+      background: var(--copy-bg);
+      border: 1px solid var(--copy-border);
+      border-radius: 4px;
+      color: var(--copy-fg);
+      font-size: 11px;
+      padding: 2px 8px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity .15s;
+    }
+    .md-content pre:hover .copy-btn { opacity: 1; }
+    .copy-btn:hover { background: var(--copy-hover-bg); color: var(--copy-hover-fg); }
+    .copy-btn.copied { color: #3fb950; border-color: #3fb950; }
+
+    /* callout blocks */
+    .callout {
+      border-left: 4px solid;
+      border-radius: 0 6px 6px 0;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    .callout strong { display: block; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+    .callout.note    { background: var(--note-bg);    border-color: var(--note-border);    color: var(--note-text); }
+    .callout.tip     { background: var(--tip-bg);     border-color: var(--tip-border);     color: var(--tip-text); }
+    .callout.important { background: var(--warn-bg);  border-color: var(--warn-border);    color: var(--warn-text); }
+    .callout.caution { background: var(--caution-bg); border-color: var(--caution-border); color: var(--caution-text); }
+    .callout code { background: rgba(0,0,0,.08); }
+
+    /* tables */
+    .md-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .md-content th {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .md-content td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      vertical-align: top;
+    }
+    .md-content tr:nth-child(even) td { background: var(--surface); }
+
+    /* links */
+    .md-content a { color: var(--accent); text-decoration: none; }
+    .md-content a:hover { text-decoration: underline; }
+
+    /* strong / em */
+    .md-content strong { font-weight: 600; }
+
+    /* ── Scroll spy ── */
+    @media (max-width: 768px) {
+      nav { display: none; }
+      main { margin-left: 0; padding: 24px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>IBM Bob On-Premise Air-Gapped Installation &amp; Setup Guide</h1>
+</header>
+
+<nav id="sidebar">
+  <ul>
+    <li class="section-label">Overview</li>
+    <li><a href="#architecture-diagram">Architecture Diagram</a></li>
+    <li class="section-label">Guide</li>
+    <li><a href="#prerequisites--architecture">Prerequisites &amp; Architecture</a></li>
+    <li><a href="#step-1">Step 1: Download Images</a></li>
+    <li><a href="#step-2">Step 2: Mirror Images</a></li>
+    <li><a href="#step-3">Step 3: Prepare Configuration</a></li>
+    <li><a href="#step-4">Step 4: Cluster Resources</a></li>
+    <li><a href="#step-5">Step 5: Deploy Operator</a></li>
+    <li><a href="#step-6">Step 6: Model Gateway</a></li>
+    <li><a href="#step-7">Step 7: Keycloak</a></li>
+    <li><a href="#step-8">Step 8: Client Workstations</a></li>
+    <li class="section-label">Reference</li>
+    <li><a href="#troubleshooting-reference">Troubleshooting</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="diagram-section">
+    <h2 id="architecture-diagram">Architecture Diagram</h2>
+    <div class="diagram-frame">
+      <iframe src="architecture.html" title="IBM Bob On-Premise Architecture Diagram" loading="lazy"></iframe>
+    </div>
+    <p class="diagram-link">Open in full screen: <a href="architecture.html" target="_blank">architecture.html</a></p>
+  </div>
+
+  <div class="md-content">
+
+    <h1>IBM Bob On-Premise Air-Gapped Installation &amp; Setup Guide</h1>
+    <p>This guide provides a comprehensive, end-to-end walkthrough for deploying IBM Bob in a fully air-gapped OpenShift environment, configuring the Model Gateway, managing Keycloak identity, and setting up client workstations (Bob Shell CLI and Bob IDE).</p>
+
+    <hr>
+
+    <h2 id="prerequisites--architecture">Prerequisites &amp; Architecture</h2>
+    <ul>
+      <li><strong>Internet-Connected Machine</strong>: Requires <code>oc</code> CLI installed, access to <code>cp.icr.io</code> / <code>icr.io</code>, and an IBM Entitlement Key.</li>
+      <li><strong>Air-Gapped Bastion</strong>: Network access to the network internal image registry and the OpenShift (<code>oc</code>) CLI must be installed.</li>
+      <li><strong>OpenShift Cluster Requirements</strong>:
+        <ul>
+          <li>OpenShift 4.12+ (or supported version)</li>
+          <li><strong>Red Hat Cert-Manager Operator</strong> installed and running, available as Operator to install from the OpenShift Dashboard</li>
+          <li>File Storage Class with <code>ReadWriteMany</code> (RWX) support (e.g. <code>ocs-storagecluster-cephfs</code>, <code>managed-nfs-storage</code>)</li>
+          <li>Block Storage Class with <code>ReadWriteOnce</code> (RWO) support (e.g. <code>ocs-storagecluster-ceph-rbd</code>)</li>
+        </ul>
+      </li>
+      <li><strong>Bob installer CLI</strong>: Download from the <a href="https://github.com/IBM/ibm-bob/releases" target="_blank" rel="noopener">Official Repository</a> on GitHub.com</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="step-1">Step 1: Download Images (Internet-Connected Host)</h2>
+    <p>On a workstation with outbound internet connectivity:</p>
+
+    <h3>1.1 Extract the downloaded Bob installer CLI</h3>
+    <pre><code class="language-bash">tar -zxvf ibm-bob-install-"&lt;version-tag&gt;".tar.gz
+cd ibm-bob-install-"&lt;version-tag&gt;"</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <h3>1.2 Download the Bob Core Container Images</h3>
+    <pre><code class="language-bash">mkdir -p ./images
+
+export IBM_ENTITLEMENT_KEY="&lt;YOUR_IBM_ENTITLEMENT_KEY&gt;"
+
+./bobctl download-images \
+  --to-dir ./images \
+  --src-creds "cp:${IBM_ENTITLEMENT_KEY}" \
+  --arch amd64</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <hr>
+
+    <h2 id="step-2">Step 2: Mirror Images to the On-Prem Private Registry (Bastion)</h2>
+
+    <h3>2.1 Copy installer and images to the bastion host</h3>
+    <div class="callout note"><strong>Note</strong>If you can access the registry from your local machine directly (e.g. via VPN connection), you can skip this step</div>
+    <p>Use <code>scp</code> to copy everything to the target host</p>
+    <pre><code class="language-bash">scp -r ./ibm-bob-install-"&lt;version-tag&gt;" "&lt;user&gt;"@"&lt;bastion_host_ip&gt;":"&lt;target_folder&gt;"</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <h3>2.1 Fix Pre-baked Placeholder Destinations in Mapping Lists</h3>
+    <p>During image download a <code>work</code> directory is created which holds mapping files. This script sets a placeholder for the FQDN of the images, as it cannot know the target image registry. Replace the <code>placeholder</code> in the mapping files with your actual private registry hostname and its image repository before uploading.</p>
+    <pre><code class="language-bash"># E.g: LOCAL_REGISTRY=registry.example.com/local-repo
+export LOCAL_REGISTRY="&lt;registry_url&gt;/&lt;local_repo&gt;"
+export REGISTRY_CREDS="&lt;username&gt;:&lt;password&gt;"
+
+# Update all mapping files
+sed -i "s|=placeholder/|=${LOCAL_REGISTRY}/|g" ./work/*-from-filesystem-mapping.lst</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <h3>2.3 Upload Images to the Private Registry</h3>
+    <pre><code class="language-bash">./bobctl upload-images \
+  --from-dir ./images \
+  --dest-registry ${LOCAL_REGISTRY} \
+  --dest-creds ${REGISTRY_CREDS}</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <hr>
+
+    <h2 id="step-3">Step 3: Prepare Installation Configuration</h2>
+    <p>Create <code>config.yaml</code> in your install directory from the <code>config-template.yaml</code> - Important: If you do not do this, then the verify command fails!:</p>
+    <pre><code class="language-bash">cp config-template.yaml config.yaml</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+    <pre><code class="language-yaml"># ── Global settings ───────────────────────────────────────────────────────────
+global:
+  operatorNamespace: ibm-bob-operators
+  instanceNamespace: ibm-bob
+  fileStorageClass: "ocs-storagecluster-cephfs"
+  blockStorageClass: "ocs-storagecluster-ceph-rbd"
+  imagePullPrefix: &lt;registry_url&gt;/&lt;local_repo&gt; &lt;- This needs to point to your registry
+  imagePullSecretName: registry-creds
+
+# ── Bob instance settings ─────────────────────────────────────────────────────
+bob:
+  modelGateway:
+    secrets:
+      BOB_ONPREM_API_KEY: "&lt;your-model-api-key&gt;"
+      CA_CERT: |
+        -----BEGIN CERTIFICATE-----
+        &lt;YOUR_INTERNAL_OR_INGRESS_CA_CERTIFICATE&gt;
+        -----END CERTIFICATE-----</code><span class="lang-label">yaml</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <h3>3.1 Validate Configuration and Images</h3>
+    <pre><code class="language-bash">./bobctl verify-images \
+  --creds ${REGISTRY_CREDS} \
+  --arch amd64</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <hr>
+
+    <h2 id="step-4">Step 4: Generate and Apply Cluster Resources</h2>
+    <p>Log in to the OpenShift cluster via <code>oc login</code>, then run:</p>
+    <pre><code class="language-bash"># Generate the required CRDs and namespaces
+./bobctl generate-cluster-resources
+
+# Apply cluster-scoped resources
+oc apply -f work/cluster-resources.yaml --force-conflicts --server-side</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <hr>
+
+    <h2 id="step-5">Step 5: Deploy Bob Operator and Instance</h2>
+    <p>Ensure the <strong>Red Hat Cert-Manager Operator</strong> is active on the cluster, then initiate the deployment:</p>
+    <pre><code class="language-bash">./bobctl install \
+  --registry-creds ${REGISTRY_CREDS} \
+  --accept-license</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <h3>5.1 Monitor the Deployment Progress</h3>
+    <pre><code class="language-bash"># Install started. Monitor progress with:
+# Check operator status
+oc get pods -n ibm-bob-operators
+# Check Bob instance status and version
+oc get bob -n ibm-bob
+# View operator logs
+oc logs -n ibm-bob-operators deployment/ibm-bob-operator -f
+
+# Once the Bob instance is Ready, open the URL printed by:
+oc get ingress bob-gateway -n ibm-bob -o jsonpath='{range .spec.rules[*]}{.host}{"\n"}{end}' | awk '!/^api\./{print "https://" $1; exit}'</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <hr>
+
+    <h2 id="step-6">Step 6: Configure the Model Gateway</h2>
+    <p>Create the model gateway routing configuration at <code>./config-model-gateway.yaml</code> from the template <code>config-model-gateway-template.yaml</code>:</p>
+    <pre><code class="language-bash">cp config-model-gateway-template.yaml config-model-gateway.yaml</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+    <pre><code class="language-yaml">general_settings:
+  request_timeout: 600
+  stream_timeout: 600
+
+x-providers:
+  laguna: &amp;laguna
+    openai_compatible:
+      model: poolside/Laguna-S-2.1-FP8
+      base_url: https://&lt;primary-model-endpoint-url&gt;
+      insecure_skip_verify: true
+      api_key: env.BOB_ONPREM_API_KEY
+    model_info:
+      exposed: true
+      provider: poolside
+      family: laguna
+      version: "s2.1"
+      max_input_tokens: 262144
+      max_output_tokens: 32768
+      supports_function_calling: true
+      supports_tool_choice: true
+      supports_reasoning: true
+      supports_vision: false
+      ca_cert_pem: env.CA_CERT
+      mode: chat
+
+models:
+  # ── Active Core Model ────────────────────────────────────────────────────────
+  - &amp;chat_llm
+    &lt;&lt;: *laguna
+    model_name: premium-ide
+
+  # ── Required System Aliases (Point to same single core model) ───────────────
+  - &lt;&lt;: *chat_llm
+    model_name: security
+
+  - &lt;&lt;: *chat_llm
+    model_name: background
+
+  # ── Guardrail Model (Single Guardrail Model) ────────────────────────────────
+  - model_name: openai/gpt-oss-20b
+    openai_compatible:
+      model: openai/gpt-oss-20b
+      base_url: https://&lt;guardrail-model-endpoint-url&gt;
+      insecure_skip_verify: true
+      ca_cert_pem: env.CA_CERT
+      api_key: env.BOB_ONPREM_API_KEY
+    model_info:
+      exposed: false
+      provider: openai
+      family: gpt-oss
+      version: "20b"
+      max_input_tokens: 32768
+      max_output_tokens: 4096
+      supports_function_calling: true
+      supports_tool_choice: true
+      mode: chat
+
+# ── Router ────────────────────────────────────────────────────────────────────
+routers:
+  - name: router
+    strategy: static
+    static:
+      default_model: premium-ide</code><span class="lang-label">yaml</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <h3>6.1 Apply Model Gateway Configuration</h3>
+    <pre><code class="language-bash">./bobctl install \
+  --model-config ./bob-install/config-model-gateway.yaml \
+  --accept-license \
+  --registry-creds ${REGISTRY_CREDS}</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <h3>6.2 Test Model Discovery</h3>
+    <pre><code class="language-bash">oc exec -n ibm-bob deploy/bob-gateway -c runtime -- \
+  sh -c "curl -sk https://bob-inference.ibm-bob.svc.cluster.local:7330/v1/model/info | jq ."</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <hr>
+
+    <h2 id="step-7">Step 7: Identity &amp; User Management (Keycloak)</h2>
+    <div class="callout important"><strong>Important</strong>Bob routes login by email domain. The default built-in domain on-premise is <code>@bob.ibm.com</code>. Users with other domains (like <code>@ibm.com</code>) are redirected to public IBMid, which will return <code>"Client not found"</code>. Always create users with an <code>@bob.ibm.com</code> address unless LDAP federation is configured.</div>
+
+    <h3>7.1 Retrieve Keycloak Temp-Admin Credentials</h3>
+    <pre><code class="language-bash">KC_URL="https://$(oc get route -n ibm-bob -l app=keycloak -o jsonpath='{.items[0].spec.host}')"
+# Or explicit route:
+KC_URL="https://bob-keycloak.ibm-bob.apps.&lt;cluster_domain&gt;"
+
+KC_USER=$(oc get secret bob-keycloak-initial-admin -n ibm-bob -o jsonpath='{.data.username}' | base64 -d)
+KC_PASS=$(oc get secret bob-keycloak-initial-admin -n ibm-bob -o jsonpath='{.data.password}' | base64 -d)</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <div class="callout caution"><strong>Caution</strong>Do not modify the <code>bob-keycloak-initial-admin</code> secret directly, as it is required by the operator for reconciliation.</div>
+
+    <h3>7.2 Obtain Admin API Token</h3>
+    <div class="callout tip"><strong>Tip</strong>If a response code of the <code>curl</code> commands is <code>401</code> be aware, that the access-token of the <code>master</code> realm in Keycloak is by default around 60 seconds. You may have to <em>refetch the token</em>.</div>
+    <pre><code class="language-bash">KC_TOKEN=$(curl -sk -X \
+  POST "${KC_URL}/realms/master/protocol/openid-connect/token" \
+  -d "username=${KC_USER}" \
+  -d "password=${KC_PASS}" \
+  -d "grant_type=password" \
+  -d "client_id=admin-cli" | jq -r .access_token)</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <h3>7.3 Create a User in the <code>bob</code> realm</h3>
+    <p>Change the according to your user details.</p>
+    <pre><code class="language-bash">NEW_EMAIL="&lt;user_name&gt;@bob.ibm.com"
+NEW_USER="&lt;user_name&gt;"
+NEW_USER_FIRST_NAME="&lt;first_name&gt;"
+NEW_USER_LAST_NAME="&lt;last_name&gt;"
+NEW_PASSWORD="&lt;choose-a-strong-password&gt;"
+
+curl -sk -o /tmp/kc_user.json -w "HTTP %{http_code}\n" \
+  -X POST "${KC_URL}/admin/realms/bob/users" \
+  -H "Authorization: Bearer ${KC_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"username\": \"${NEW_USER}\",
+    \"email\": \"${NEW_EMAIL}\",
+    \"firstName\": \"${NEW_USER_FIRST_NAME}\",
+    \"lastName\": \"${NEW_USER_LAST_NAME}\",
+    \"enabled\": true,
+    \"emailVerified\": true,
+    \"credentials\": [{
+      \"type\": \"password\",
+      \"value\": \"${NEW_PASSWORD}\",
+      \"temporary\": false
+    }]
+  }"
+# Expected: HTTP 201</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <h3>7.4 (Optional) Grant Admin Role</h3>
+    <p>New users are automatically added to <code>bob-users</code>. To grant admin privileges:</p>
+    <pre><code class="language-bash">USER_ID=$(curl -sk "${KC_URL}/admin/realms/bob/users?username=${NEW_USER}" \
+  -H "Authorization: Bearer ${KC_TOKEN}" \
+  | jq -r '.[0].id')
+
+ADMIN_GROUP_ID=$(curl -sk "${KC_URL}/admin/realms/bob/groups" \
+  -H "Authorization: Bearer ${KC_TOKEN}" \
+  | jq -r '.[] | select(.name=="bob-admins") | .id')
+
+curl -sk -X PUT \
+  "${KC_URL}/admin/realms/bob/users/${USER_ID}/groups/${ADMIN_GROUP_ID}" \
+  -H "Authorization: Bearer ${KC_TOKEN}" \
+  -w "HTTP %{http_code}\n"
+
+# Expected: HTTP 204</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <hr>
+
+    <h2 id="step-8">Step 8: Configure Client Workstations (Bob Shell &amp; Bob IDE)</h2>
+
+    <h3>8.1 Extract and Trust the Cluster CA Certificate</h3>
+    <p>Extract the self-signed CA certificate managed by the OpenShift cert-manager into your <code>.bob</code> user settings folder under a newly created subfolder <code>on-prem-certs</code>.</p>
+    <pre><code class="language-bash">mkdir -p ~/.bob/on-prem-certs
+oc get secret bob-internal-ca-key-pair -n ibm-bob \
+-o jsonpath='{.data.ca\.crt}' | base64 -d &gt; ~/.bob/on-prem-certs/bob-ca.crt</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <p>Trust the CA certificate in the workstations operating system:</p>
+    <p><strong>macOS</strong>:</p>
+    <pre><code class="language-bash">sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ~/.bob/on-prem-certs/bob-ca.crt</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+    <p><strong>Linux (RHEL / CentOS / Fedora)</strong>:</p>
+    <pre><code class="language-bash">sudo cp ~/.bob/on-prem-certs/bob-ca.crt /etc/pki/ca-trust/source/anchors/bob-ca.crt
+sudo update-ca-trust extract</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+    <p><strong>Linux (Ubuntu / Debian)</strong>:</p>
+    <pre><code class="language-bash">sudo cp ~/.bob/on-prem-certs/bob-ca.crt /usr/local/share/ca-certificates/bob-ca.crt
+sudo update-ca-certificates</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+    <p><strong>Windows (PowerShell Administrator)</strong>:</p>
+    <pre><code class="language-powershell">certutil -addstore "Root" "$env:USERPROFILE\.bob\on-prem-certs\bob-ca.crt"</code><span class="lang-label">powershell</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+
+    <h3>8.2 Configure Bob Shell (CLI)</h3>
+    <ol>
+      <li>Retrieve the general admin API key from the cluster (or generate a user key in Bob Admin UI):
+        <pre><code class="language-bash">BOB_API_KEY=$(oc get secret bob-admin-secret -n ibm-bob -o jsonpath='{.data.BOB_API_KEY}' | base64 -d)</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+      </li>
+      <li>Add environment variables to <code>~/.zshrc</code> or <code>~/.bashrc</code> (ensure <code>export</code> is used):
+        <pre><code class="language-bash">export BOB_GATEWAY_URL="https://api.bob.ibm-bob.apps.&lt;cluster_domain&gt;"
+export BOB_API_KEY="&lt;your-api-key&gt;"
+# Note: NODE_EXTRA_CA_CERTS must be an absolute path:
+export NODE_EXTRA_CA_CERTS="~/.bob/on-prem-certs/bob-ca.crt"
+
+# Optional endpoints
+export BOB_WEB_LOGIN_URL="https://bob-keycloak.ibm-bob.apps.&lt;cluster_domain&gt;"
+export BOB_UI_URL="https://bob.ibm-bob.apps.&lt;cluster_domain&gt;"</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+      </li>
+      <li>Source your profile and verify:
+        <pre><code class="language-bash">source ~/.zshrc
+bob --accept-license -p "Write a Python hello world function"</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+      </li>
+    </ol>
+
+    <h3>8.3 Configure Bob IDE (VS Code Extension &amp; Desktop App)</h3>
+    <p>Open or create <code>~/.bob/settings/settings.json</code> on your workstation and configure:</p>
+    <pre><code class="language-bash">bobide ~/.bob/settings/settings.json</code><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+    <pre><code class="language-json">{
+  "gatewayUrl": "https://api.bob.ibm-bob.apps.&lt;cluster_domain&gt;",
+  "webLoginUrl": "https://bob-keycloak.ibm-bob.apps.&lt;cluster_domain&gt;",
+  "http.experimental.systemCertificatesV2": true
+}</code><span class="lang-label">json</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+    <p>Restart your IDE for the certificate trust and gateway URLs to take effect.</p>
+
+    <hr>
+
+    <h2 id="troubleshooting-reference">Troubleshooting Reference</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Issue / Symptom</th>
+          <th>Root Cause</th>
+          <th>Resolution</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>"Client not found"</code> on login</td>
+          <td>Email domain not <code>@bob.ibm.com</code></td>
+          <td>Create users with <code>@bob.ibm.com</code> address or configure LDAP federation.</td>
+        </tr>
+        <tr>
+          <td><code>Error: Bob API key is required</code></td>
+          <td>Shell variables defined without <code>export</code></td>
+          <td>Prefix all environment variables with <code>export</code> in shell profile.</td>
+        </tr>
+        <tr>
+          <td><code>UNABLE_TO_VERIFY_LEAF_SIGNATURE</code> in CLI</td>
+          <td>Node.js does not trust the self-signed CA</td>
+          <td>Set <code>NODE_EXTRA_CA_CERTS</code> to the <strong>absolute path</strong> of <code>bob-ca.crt</code>.</td>
+        </tr>
+        <tr>
+          <td><code>Sign in failed: fetch failed</code> in IDE</td>
+          <td>OS does not trust CA or missing experimental flag</td>
+          <td>Add <code>bob-ca.crt</code> to OS trust store/Keychain and add <code>"http.experimental.systemCertificatesV2": true</code> to <code>settings.json</code>.</td>
+        </tr>
+        <tr>
+          <td><code>CrashLoopBackOff</code> on <code>bob-gateway</code></td>
+          <td>NGINX blocks health checks from CGNAT IPs (<code>100.68.x.x</code>)</td>
+          <td>Apply <code>bob-gateway-probes-override</code> ConfigMap and patch deployment.</td>
+        </tr>
+        <tr>
+          <td>Image upload fails against <code>docker.io</code></td>
+          <td><code>placeholder</code> destination baked into mapping lists</td>
+          <td>Run <code>sed -i 's|=placeholder/|=${LOCAL_REGISTRY}/|g'</code> across mapping files.</td>
+        </tr>
+        <tr>
+          <td><code>HTTP 400</code> on Chat Completion</td>
+          <td>Missing required system model aliases</td>
+          <td>Map <code>premium-ide</code>, <code>security</code>, and <code>background</code> to the core LLM in <code>config-model-gateway.yaml</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div><!-- /.md-content -->
+</main>
+
+<script>
+  // Copy button
+  function copyCode(btn) {
+    var pre = btn.closest('pre');
+    var code = pre.querySelector('code');
+    navigator.clipboard.writeText(code.innerText).then(function() {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Sync the embedded architecture diagram (and its theme toggle) with the OS theme
+  (function () {
+    var frame = document.querySelector('.diagram-frame iframe');
+    var media = window.matchMedia('(prefers-color-scheme: dark)');
+    if (!frame) return;
+
+    function sync() {
+      if (!frame.contentWindow) return;
+      frame.contentWindow.postMessage(
+        { type: 'archify-set-theme', theme: media.matches ? 'dark' : 'light' }, '*');
+    }
+
+    frame.addEventListener('load', sync);
+    if (media.addEventListener) media.addEventListener('change', sync);
+    else if (media.addListener) media.addListener(sync);
+  })();
+
+  // Scroll-spy: highlight the active nav link
+  (function () {
+    var links = document.querySelectorAll('#sidebar a');
+    var headings = [];
+    links.forEach(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) headings.push({ el: el, link: a });
+    });
+
+    function onScroll() {
+      var scrollY = window.scrollY + 80;
+      var active = headings[0];
+      headings.forEach(function (h) {
+        if (h.el.offsetTop <= scrollY) active = h;
+      });
+      links.forEach(function (a) { a.classList.remove('active'); });
+      if (active) active.link.classList.add('active');
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+</body>
+</html>

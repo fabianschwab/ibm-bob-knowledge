@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Context Poisoning</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Context Poisoning">
+  <div class="detail-inner">
+    <div class="eyebrow">Context Window Management — Context Risks</div>
+    <h2>Context Poisoning</h2>
+    <p>When inaccurate or irrelevant data enters <strong>Messages</strong> (via bad log pastes or stale comments), Bob re-reads it on every turn and treats it as ground truth, causing reasoning drift and recurring tool errors.</p>
+
+    <h3>How it happens</h3>
+    <ul>
+      <li>Pasting large, unfiltered log files that contain misleading or outdated state.</li>
+      <li>Leaving stale inline comments in files that contradict the current implementation.</li>
+      <li>Injecting test fixtures or mock data that Bob then reasons about as if it were production reality.</li>
+    </ul>
+
+    <h3>Why it is dangerous</h3>
+    <ul>
+      <li>The poisoned content is <strong>re-sent on every prompt</strong> — it never stops influencing responses until the conversation is cleared.</li>
+      <li>Bob cannot distinguish between reliable context and garbage input; it weights all <em>Messages</em> content equally.</li>
+      <li>Subtle drift compounds over turns: each hallucinated detail can seed the next response.</li>
+    </ul>
+
+    <h3>Mitigation</h3>
+    <ul>
+      <li>Use <code>+</code> to start a fresh task rather than continuing a contaminated conversation.</li>
+      <li>Reference specific file line ranges with <code>@file.ts:10-30</code> instead of pasting raw output.</li>
+      <li>Remove or correct stale comments before asking Bob to reason about a file.</li>
+    </ul>
+
+    <p class="source">Source: <a href="https://bob.ibm.com/docs/ide/core-concepts/context-window-management" target="_blank" rel="noopener noreferrer">IBM Bob Documentation – Context Window Management</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

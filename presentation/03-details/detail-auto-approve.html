@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Auto-approve</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Auto-approve">
+  <div class="detail-inner">
+    <div class="eyebrow">Key features</div>
+    <h2>Auto-approve</h2>
+    <p>By default, Bob asks for approval before each action. Auto-approve lets Bob run chosen actions without asking, which removes repetitive prompts but bypasses your safety check.</p>
+    <h3>What you need to know</h3>
+    <ul>
+      <li><strong>Where to set it:</strong> Select the <strong>Permissions</strong> button beside the mode selector at the bottom of the chat input.</li>
+      <li><strong>Per action:</strong> Choose which actions Bob may complete on its own. Task-level overrides apply to the current task only.</li>
+      <li><strong>Default behavior:</strong> Approval prompts appear one at a time, and you can edit a proposed terminal command before approving it.</li>
+    </ul>
+    <h3>Risk levels</h3>
+    <ul>
+      <li><strong>High:</strong> Edit (create, change, and delete files) and Execute (run terminal commands).</li>
+      <li><strong>Medium to high:</strong> MCP, which depends on what the connected servers can do.</li>
+      <li><strong>Medium:</strong> Read and Skill.</li>
+      <li><strong>Low:</strong> Todo, Subtask, Subagent, and Mode.</li>
+    </ul>
+    <h3>Stay safe</h3>
+    <ul>
+      <li><strong>Start restrictive:</strong> Begin with minimal permissions and add more only as needed.</li>
+      <li><strong>Use it locally:</strong> Good for repetitive tasks, batch operations, and local development.</li>
+      <li><strong>Never in production:</strong> Turn it off for sensitive code and production systems.</li>
+      <li><strong>Review regularly:</strong> Check what Bob has changed, especially file edits.</li>
+    </ul>
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide">Welcome to IBM Bob</a>, <a href="https://bob.ibm.com/docs/ide/features/auto-approving-actions">Auto-approve</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../03-key-features.html">&#8592; Back</a>
+</nav>
+
+<script src="../nav.js"></script>
+</body>
+</html>

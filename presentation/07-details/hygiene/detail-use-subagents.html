@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Use Subagents</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Use Subagents">
+  <div class="detail-inner">
+    <div class="eyebrow">Context Window Management — Context Hygiene</div>
+    <h2>Use Subagents</h2>
+    <p>Delegate repo-wide exploration to subagents (<code>spawn_subagent</code>). Only the condensed summary enters your main context window — the full working memory of the subagent stays isolated.</p>
+
+    <h3>How subagents help with context</h3>
+    <ul>
+      <li>A subagent runs in its own isolated context window — all tool calls, file reads, and intermediate reasoning happen there.</li>
+      <li>Only the final summary is returned to the parent session, keeping your main window lean.</li>
+      <li>Ideal for tasks like "scan the entire codebase for usages of X" or "audit all API endpoints".</li>
+    </ul>
+
+    <h3>When to reach for a subagent</h3>
+    <ul>
+      <li>The task requires reading many files across the project that aren't directly relevant to your current conversation.</li>
+      <li>You need a broad exploration step before narrowing to a specific implementation.</li>
+      <li>You want to run parallel investigations without polluting the main transcript.</li>
+    </ul>
+
+    <h3>What stays in the main window</h3>
+    <ul>
+      <li>The subagent's <strong>summary</strong> — concise findings, not raw tool output.</li>
+      <li>Your original task description and any files you directly referenced.</li>
+      <li>Bob's subsequent reasoning and code changes based on the summary.</li>
+    </ul>
+
+    <p class="source">Source: <a href="https://bob.ibm.com/docs/ide/core-concepts/context-window-management" target="_blank" rel="noopener noreferrer">IBM Bob Documentation – Context Window Management</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

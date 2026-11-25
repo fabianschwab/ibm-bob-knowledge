@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Hooks</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail blue" aria-label="Hooks">
+  <div class="detail-inner">
+    <div class="eyebrow">Customizing Bob — Scale</div>
+    <h2>Hooks</h2>
+
+    <h3>What they are</h3>
+    <p>Hooks are event-driven automation triggers that fire automatically when specific Bob lifecycle events occur. They run a shell command or send an HTTPS POST — no AI involved. Defined in <code>.bob/settings.json</code> under the <code>hooks</code> key.</p>
+    <ul>
+      <li>7 supported events: <code>SessionStart</code>, <code>UserPromptSubmit</code>, <code>PreCompact</code>, <code>PostCompact</code>, <code>PreToolUse</code>, <code>PostToolUse</code>, <code>Stop</code>.</li>
+      <li>Each hook receives the event payload as JSON on stdin (command) or as a POST body (HTTP).</li>
+      <li>Exit code 2 from a command handler blocks <code>PreToolUse</code> or <code>UserPromptSubmit</code> — the only way to stop Bob mid-action without AI intervention.</li>
+    </ul>
+
+    <h3>How to use them</h3>
+    <ul>
+      <li><strong>Lint after write:</strong> Register a <code>PostToolUse</code> hook with matcher <code>^(write_file|apply_diff)$</code> to run ESLint or Prettier automatically after every edit.</li>
+      <li><strong>Block dangerous commands:</strong> Use a <code>PreToolUse</code> hook with matcher <code>^execute_command$</code> and exit 2 to prevent publishing or destructive operations.</li>
+      <li><strong>Inject context at session start:</strong> A <code>SessionStart</code> hook can output dynamic project info to stdout — Bob adds it to the model context.</li>
+      <li><strong>Audit via HTTP:</strong> Use an HTTP handler to POST every tool call to an external audit endpoint, with authorization headers from environment variables.</li>
+      <li>Scope to workspace (<code>.bob/settings.json</code>) or globally (<code>~/.bob/settings/settings.json</code>). Both are combined — workspace hooks do not replace global ones.</li>
+    </ul>
+
+    <h3>Trigger</h3>
+    <ul>
+      <li>Hooks fire <strong>automatically</strong> — there is no manual invocation. They are purely configuration-driven.</li>
+      <li>The event name and optional matcher (a JavaScript regex against the tool name or session source) determine when a hook runs.</li>
+      <li>Hooks only run in <strong>trusted workspaces</strong>. Untrusted workspaces silently skip all hooks.</li>
+      <li>Configuration changes for later events take effect immediately. <code>SessionStart</code> changes take effect when the next task starts or resumes.</li>
+    </ul>
+
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide/configuration/hooks">Hooks</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../../04-customizing.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Targeted @ Mentions</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Targeted @ Mentions">
+  <div class="detail-inner">
+    <div class="eyebrow">Context Window Management — Context Hygiene</div>
+    <h2>Targeted <code>@</code> Mentions</h2>
+    <p>Reference specific files or line ranges (<code>@utils.ts:45-67</code>) instead of broad folder dumps (<code>@src</code>). Add context on demand in stages rather than all at once.</p>
+
+    <h3>Why targeted mentions matter</h3>
+    <ul>
+      <li>A broad <code>@src</code> mention can inject thousands of lines into the context window in a single turn.</li>
+      <li>Bob reads all injected content on every subsequent prompt — not just the first one.</li>
+      <li>Precise references give Bob exactly the signal it needs with minimal token cost.</li>
+    </ul>
+
+    <h3>Mention syntax</h3>
+    <ul>
+      <li><code>@filename.ts</code> — entire file (use sparingly for small files only).</li>
+      <li><code>@filename.ts:45-67</code> — specific line range (preferred for large files).</li>
+      <li><code>@folder/</code> — full directory listing (high token cost; avoid unless necessary).</li>
+    </ul>
+
+    <h3>Staged context strategy</h3>
+    <ul>
+      <li>Start with a minimal reference — the function signature or the specific lines in question.</li>
+      <li>If Bob asks for more context, add the next relevant section only.</li>
+      <li>Avoid pre-emptively dumping the entire module "just in case".</li>
+    </ul>
+
+    <p class="source">Source: <a href="https://bob.ibm.com/docs/ide/core-concepts/context-window-management" target="_blank" rel="noopener noreferrer">IBM Bob Documentation – Context Window Management</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

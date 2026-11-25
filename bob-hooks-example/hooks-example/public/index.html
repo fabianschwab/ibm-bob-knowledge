@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Todo CRUD</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 520px; margin: 40px auto; padding: 0 16px; }
+    h1 { font-size: 20px; margin-bottom: 16px; }
+    input { padding: 8px; font-size: 14px; width: 70%; }
+    button { padding: 8px 12px; font-size: 14px; cursor: pointer; }
+    ul { list-style: none; padding: 0; margin-top: 16px; }
+    li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+    li.done .title { text-decoration: line-through; color: #888; }
+    .actions { margin-left: auto; display: flex; gap: 6px; }
+    button.delete { background: #ffe6e6; border: 1px solid #ff9999; color: #b00; }
+    button.toggle { background: #e6f2ff; border: 1px solid #99ccff; }
+    #msg { color: #b00; margin-bottom: 8px; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>Todos</h1>
+  <div id="msg"></div>
+  <input id="title" placeholder="New todo" />
+  <button id="add">Add</button>
+  <ul id="list"></ul>
+
+  <script>
+    const listEl = document.getElementById('list');
+    const titleEl = document.getElementById('title');
+    const addBtn = document.getElementById('add');
+    const msgEl = document.getElementById('msg');
+
+    async function load() {
+      const res = await fetch('/api/todos');
+      const todos = await res.json();
+      render(todos);
+    }
+
+    function render(todos) {
+      listEl.innerHTML = '';
+      for (const t of todos) {
+        const li = document.createElement('li');
+        if (t.completed) li.classList.add('done');
+        li.innerHTML = `
+          <label><input type="checkbox" ${t.completed ? 'checked' : ''} data-id="${t.id}"> <span class="title">${escapeHtml(t.title)}</span></label>
+          <div class="actions">
+            <button class="delete" data-id="${t.id}">Delete</button>
+          </div>
+        `;
+        listEl.appendChild(li);
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    function showMsg(text) {
+      msgEl.textContent = text;
+      setTimeout(() => { msgEl.textContent = ''; }, 3000);
+    }
+
+    addBtn.addEventListener('click', async () => {
+      const title = titleEl.value.trim();
+      if (!title) return;
+      const res = await fetch('/api/todos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title })
+      });
+      if (!res.ok) { showMsg('Failed to add todo'); return; }
+      titleEl.value = '';
+      load();
+    });
+
+    listEl.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button.delete');
+      if (btn) {
+        const id = btn.dataset.id;
+        await fetch(`/api/todos/${id}`, { method: 'DELETE' });
+        load();
+        return;
+      }
+      const checkbox = e.target.closest('input[type="checkbox"]');
+      if (checkbox) {
+        const id = checkbox.dataset.id;
+        const todo = (await fetch('/api/todos').then((r) => r.json())).find((t) => t.id == id);
+        await fetch(`/api/todos/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ completed: !todo.completed })
+        });
+        load();
+      }
+    });
+
+    load();
+  </script>
+</body>
+</html>

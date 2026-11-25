@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBM Bob – Context Window Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <section class="slide caps scroll" aria-label="Context Window Management">
+    <h2>Context Window Management</h2>
+    <p class="sub">Working memory optimization, token breakdown, and best practices.</p>
+
+    <p class="harness-intro">
+      The context window is the working memory (~270,000 tokens). Understanding what consumes your window is essential for peak output quality.
+    </p>
+
+    <!-- 3-column breakdown of what fills the window and capacity allocation -->
+    <div class="grid">
+      <div class="card purple">
+        <h3>1. Baseline Overhead</h3>
+        <p style="margin-bottom: 1rem;">Fixed stack re-sent on every prompt before you type:<br/>
+          <span class="pill purple" style="margin-bottom: 0.5rem;">System prompt</span>
+          <span class="pill purple" style="margin-bottom: 0.5rem;">Tool definitions</span>
+          <span class="pill purple" style="margin-bottom: 0.5rem;">Rules</span>
+          <span class="pill purple" style="margin-bottom: 0.5rem;">Skills</span>
+        </p>
+      </div>
+
+      <div class="card purple">
+        <h3>2. Dynamic Messages</h3>
+        <p style="margin-bottom: 1rem;">The conversation transcript that grows with each turn:</p>
+        
+          <span class="pill purple " style="margin-bottom: 0.5rem;">Prompts &amp; replies</span>
+          <span class="pill purple " style="margin-bottom: 0.5rem;">@ Mentions</span>
+          <span class="pill purple " style="margin-bottom: 0.5rem;">Tool activity</span>
+          <span class="pill purple " style="margin-bottom: 0.5rem;">Selected text</span>
+        
+      </div>
+
+      <div class="card purple">
+        <h3>3. Capacity &amp; Zones</h3>
+        <p style="margin-bottom: 1rem;">Model response quality varies across token thresholds:</p>
+        
+          <span class="pill green" style="margin-bottom: 0.5rem;">&lt; 50k tokens</span>
+          <span class="pill yellow" style="margin-bottom: 0.5rem;">&gt; 100k tokens</span>
+          <span class="pill blue" style="margin-bottom: 0.5rem;">~20k reserved*</span>
+          <span class="pill red" style="margin-bottom: 0.5rem;">Condensation</span>
+        <p style="margin-top: 0.75rem; font-size: 0.85em; opacity: 0.8;">* Buffer held back for Bob's next reply</p>
+      </div>
+    </div>
+
+    <!-- Context Risks Section -->
+    <div class="harness-group">
+      <span class="harness-group-label">Context Risks &amp; Failure Modes</span>
+      <div class="grid">
+        <a class="card purple" href="07-details/risks/detail-context-poisoning.html">
+          <h3>Context Poisoning</h3>
+          <p>Bad input treated as ground truth, causing reasoning drift.</p>
+        </a>
+        <a class="card purple" href="07-details/risks/detail-lossy-condensation.html">
+          <h3>Lossy Condensation</h3>
+          <p>Critical details permanently dropped when the window fills up.</p>
+        </a>
+        <a class="card purple" href="07-details/risks/detail-transcript-bloat.html">
+          <h3>Transcript Bloat</h3>
+          <p>Large dumps consume token headroom and increase latency.</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Best Practices Section -->
+    <div class="harness-group">
+      <span class="harness-group-label">Context Hygiene &amp; Best Practices</span>
+      <div class="grid" style="grid-template-columns: repeat(4, 1fr);">
+        <a class="card purple" href="07-details/hygiene/detail-start-fresh.html">
+          <h3>Start Fresh (<code>+</code>)</h3>
+          <p>Clear a stale conversation without losing files or rules.</p>
+        </a>
+        <a class="card purple" href="07-details/hygiene/detail-targeted-mentions.html">
+          <h3>Targeted <code>@</code> Mentions</h3>
+          <p>Reference specific lines, not whole folders.</p>
+        </a>
+        <a class="card purple" href="07-details/hygiene/detail-use-subagents.html">
+          <h3>Tasks for Subagents</h3>
+          <p>Isolate exploration — only the summary returns to your window.</p>
+        </a>
+        <a class="card purple" href="07-details/hygiene/detail-trust-tests.html">
+          <h3>Trust Tests Over Text</h3>
+          <p>Point Bob at runnable tests, not long chat explanations.</p>
+        </a>
+      </div>
+    </div>
+
+    <p class="source" style="margin-top: 3.5vh; font-size: clamp(12px, 1.1vw, 15px); color: var(--text-faint);">
+      Source: <a href="https://bob.ibm.com/docs/ide/core-concepts/context-window-management" target="_blank" rel="noopener noreferrer" style="color: var(--link);">IBM Bob Documentation – Context Window Management</a>
+    </p>
+  </section>
+
+  <nav class="nav" aria-label="Slide navigation">
+    <a rel="prev" aria-label="Previous slide" href="06-shift-left-security.html">&#8592;</a>
+    <span>7 / 11</span>
+    <a rel="next" aria-label="Next slide" href="08-governance.html">&#8594;</a>
+  </nav>
+
+  <script src="nav.js"></script>
+</body>
+
+</html>

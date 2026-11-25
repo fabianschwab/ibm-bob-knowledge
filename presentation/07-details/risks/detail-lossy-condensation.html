@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Lossy Condensation</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Lossy Condensation">
+  <div class="detail-inner">
+    <div class="eyebrow">Context Window Management — Context Risks</div>
+    <h2>Lossy Condensation</h2>
+    <p>When the context limit is hit, Bob automatically summarizes older conversation segments. Critical nuance, file snippets, or architectural decisions from earlier in the chat may be permanently dropped.</p>
+
+    <h3>When it triggers</h3>
+    <ul>
+      <li>The conversation approaches the ~200,000-token limit of the context window.</li>
+      <li>Large file reads, command output, or extended back-and-forth exchanges fill the window rapidly.</li>
+      <li>Condensation is <strong>automatic and silent</strong> — there is no explicit warning before information is lost.</li>
+    </ul>
+
+    <h3>What gets lost</h3>
+    <ul>
+      <li>Precise file snippets shared early in the session that were not re-referenced later.</li>
+      <li>Architectural decisions or constraints discussed before the condensation threshold was reached.</li>
+      <li>Subtle clarifications or corrections that were added incrementally over many turns.</li>
+    </ul>
+
+    <h3>Mitigation</h3>
+    <ul>
+      <li>Start a new task with <code>+</code> when switching topics — this preserves project files on disk while resetting the message transcript.</li>
+      <li>Re-anchor important constraints early in each new session rather than assuming they persist.</li>
+      <li>Keep critical decisions in <code>AGENTS.md</code> or rule files so they are re-loaded from disk on every prompt.</li>
+    </ul>
+
+    <p class="source">Source: <a href="https://bob.ibm.com/docs/ide/core-concepts/context-window-management" target="_blank" rel="noopener noreferrer">IBM Bob Documentation – Context Window Management</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

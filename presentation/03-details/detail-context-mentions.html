@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Context mentions</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Context mentions">
+  <div class="detail-inner">
+    <div class="eyebrow">Key features</div>
+    <h2>Context mentions</h2>
+    <p>Type <code>@</code> in the chat to reference parts of your project directly. This replaces copying and pasting code or describing where files are.</p>
+    <h3>Mention types</h3>
+    <ul>
+      <li><strong>File:</strong> <code>@/path/to/file.ts</code> includes the file contents. Add line numbers such as <code>@/src/app.js:10-20</code> for a section.</li>
+      <li><strong>Folder:</strong> <code>@/path/to/folder</code> includes the files directly in the folder, not subfolders.</li>
+      <li><strong>Problems:</strong> <code>@problems</code> includes errors and warnings from the Problems panel.</li>
+      <li><strong>Terminal:</strong> <code>@terminal</code> includes the last command and its output.</li>
+      <li><strong>Git:</strong> <code>@git-changes</code> adds uncommitted changes, and a commit hash such as <code>@a1b2c3d</code> adds that commit.</li>
+      <li><strong>URL:</strong> <code>@https://example.com</code> imports a web page as Markdown.</li>
+    </ul>
+    <h3>Supported file formats</h3>
+    <div class="format-groups">
+      <div class="format-group format-group--expanded">
+        <span class="format-label">Text &amp; Code</span>
+        <span class="format-note">Any plain-text file — no extension restrictions</span>
+        <div class="format-subcategories">
+          <div class="format-subgroup">
+            <span class="format-sublabel">Web &amp; Frontend</span>
+            <div class="format-tags">
+              <code>.html</code><code>.css</code><code>.scss</code><code>.js</code><code>.jsx</code><code>.ts</code><code>.tsx</code><code>.vue</code><code>.svelte</code>
+            </div>
+          </div>
+          <div class="format-subgroup">
+            <span class="format-sublabel">Backend &amp; Systems</span>
+            <div class="format-tags">
+              <code>.py</code><code>.go</code><code>.java</code><code>.kt</code><code>.rs</code><code>.rb</code><code>.php</code><code>.cs</code><code>.c</code><code>.cpp</code><code>.swift</code><code>.sh</code><code>.ps1</code>
+            </div>
+          </div>
+          <div class="format-subgroup">
+            <span class="format-sublabel">Data &amp; Config</span>
+            <div class="format-tags">
+              <code>.json</code><code>.yaml</code><code>.toml</code><code>.xml</code><code>.csv</code><code>.env</code><code>.sql</code>
+            </div>
+          </div>
+          <div class="format-subgroup">
+            <span class="format-sublabel">Docs &amp; Markup</span>
+            <div class="format-tags">
+              <code>.md</code><code>.mdx</code><code>.rst</code><code>.tex</code><code>.txt</code><code>.log</code>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="format-group">
+        <span class="format-label">Images</span>
+        <div class="format-tags">
+          <code>.png</code><code>.jpg</code><code>.gif</code><code>.webp</code>
+        </div>
+        <span class="format-note">Visual analysis — text, layouts, UI, diagrams</span>
+      </div>
+      <div class="format-group">
+        <span class="format-label">Office</span>
+        <div class="format-tags">
+          <code>.docx</code><code>.xlsx</code><code>.pptx</code>
+        </div>
+        <span class="format-note">Structured extraction of text, tables, slides &amp; formulas</span>
+      </div>
+      <div class="format-group">
+        <span class="format-label">PDF</span>
+        <div class="format-tags">
+          <code>.pdf</code>
+        </div>
+        <span class="format-note">Direct reading &amp; text extraction</span>
+      </div>
+      <div class="format-group format-group--unsupported">
+        <span class="format-label">Not supported</span>
+        <div class="format-tags">
+          <code>.dll</code><code>.zip</code><code>.mp4</code><code>.mp3</code><code>.psd</code>
+        </div>
+        <span class="format-note">Binaries, archives, audio/video &amp; proprietary formats</span>
+      </div>
+    </div>
+    <h3>How to use them</h3>
+    <ul>
+      <li>Type <code>@</code> to open suggestions, keep typing to filter, and select with <kbd>Enter</kbd>.</li>
+      <li>Combine several mentions in one request, such as "Fix @problems in @/src/component.ts".</li>
+      <li>Highlight code and press <kbd>&#8984;</kbd> + <kbd>L</kbd> to add it to the chat.</li>
+    </ul>
+    <h3>Good to know</h3>
+    <ul>
+      <li>File and folder mentions bypass <code>.bobignore</code> and <code>.gitignore</code>.</li>
+      <li>Large files may be truncated, and binary files are not supported.</li>
+      <li>Watch the context window limit when mentioning large folders.</li>
+    </ul>
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide">Welcome to IBM Bob</a>, <a href="https://bob.ibm.com/docs/ide/features/context-mentions">Context mentions</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../03-key-features.html">&#8592; Back</a>
+</nav>
+
+<script src="../nav.js"></script>
+</body>
+</html>

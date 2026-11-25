@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Pull requests</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Pull requests">
+  <div class="detail-inner">
+    <div class="eyebrow">Key features</div>
+    <h2>Pull requests</h2>
+    <p>Bob analyzes your branch changes, commit history, and branch name to write a PR title and a detailed description. You review and edit the result before the PR is created, all without leaving your IDE.</p>
+    <h3>Before you start</h3>
+    <ul>
+      <li>Your changes must be committed to a branch.</li>
+      <li>You need push access to the remote repository.</li>
+    </ul>
+    <h3>Start the flow</h3>
+    <ul>
+      <li>Click the <strong>PR icon</strong> in the Source Control panel.</li>
+      <li>Search for <strong>Bob: Create Pull Request</strong> in the Command Palette.</li>
+      <li>Type <code>/create-pull-request</code> in the Bob chat.</li>
+    </ul>
+    <h3>What happens next</h3>
+    <ul>
+      <li>Select the base branch. Bob suggests the three most likely ones.</li>
+      <li>Select the remote repository if you have more than one.</li>
+      <li>Review the generated title and description. Confirm them, or type feedback and Bob regenerates them.</li>
+      <li>Bob creates the PR and posts the link in your chat.</li>
+    </ul>
+    <h3>Good to know</h3>
+    <ul>
+      <li>Bob detects your project's PR template, such as <code>.github/pull_request_template.md</code>, and asks you to choose if it finds several. Without one, it uses a built-in template.</li>
+      <li>Descriptive branch names lead to more accurate descriptions.</li>
+    </ul>
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide">Welcome to IBM Bob</a>, <a href="https://bob.ibm.com/docs/ide/features/pull-requests">Pull requests</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../03-key-features.html">&#8592; Back</a>
+</nav>
+
+<script src="../nav.js"></script>
+</body>
+</html>

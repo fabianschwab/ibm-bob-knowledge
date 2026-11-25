@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – AGENTS.md</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail blued" aria-label="AGENTS.md">
+  <div class="detail-inner">
+    <div class="eyebrow">Customizing Bob — Guidance</div>
+    <h2>AGENTS.md</h2>
+    <p>Run <code>/init</code> and Bob scans your project, then writes <strong>AGENTS.md</strong> — a concise, actionable summary that gives Bob persistent knowledge of your project's structure and conventions across every conversation.</p>
+
+    <h3>What goes in AGENTS.md</h3>
+    <div class="example-grid">
+      <div class="code-container">
+        <div class="code-header">
+          <span class="file-path">AGENTS.md</span>
+          <span class="file-badge">Markdown</span>
+        </div>
+        <pre class="code-body"><code><span class="syn-key"># Project Overview</span>
+<span class="syn-val">Galaxium Travels — a Node.js travel booking app.</span>
+
+<span class="syn-tag">## Directory Structure</span>
+<span class="syn-punct">-</span> <span class="syn-str">src/api/</span>   <span class="syn-val">— REST endpoints</span>
+<span class="syn-punct">-</span> <span class="syn-str">src/ui/</span>    <span class="syn-val">— React components</span>
+<span class="syn-punct">-</span> <span class="syn-str">tests/</span>     <span class="syn-val">— Jest test suites</span>
+
+<span class="syn-tag">## Tech Stack</span>
+<span class="syn-punct">-</span> <span class="syn-val">Node.js · React · PostgreSQL</span>
+
+<span class="syn-tag">## Dev Workflow</span>
+<span class="syn-punct">-</span> <span class="syn-val">Run </span><span class="syn-str">pnpm test</span><span class="syn-val"> before committing.</span>
+<span class="syn-punct">-</span> <span class="syn-val">PRs require two approvals.</span></code></pre>
+      </div>
+
+      <div class="tree-container">
+        <div class="code-header">
+          <span class="file-path">Generated file structure</span>
+          <span class="file-badge">Files</span>
+        </div>
+        <pre class="tree-body"><code><span class="tree-folder">my-project/</span>
+├── <span class="tree-file-primary">AGENTS.md</span>             <span class="tree-comment"># Main context (all modes)</span>
+└── <span class="tree-folder">.bob/</span>
+    ├── <span class="tree-folder">rules-code/</span>
+    │   └── <span class="tree-file">AGENTS-code.md</span>  <span class="tree-comment"># Agent mode</span>
+    ├── <span class="tree-folder">rules-plan/</span>
+    │   └── <span class="tree-file">AGENTS-plan.md</span>  <span class="tree-comment"># Plan mode</span>
+    └── <span class="tree-folder">rules-ask/</span>
+        └── <span class="tree-file">AGENTS-ask.md</span>   <span class="tree-comment"># Ask mode</span></code></pre>
+      </div>
+    </div>
+
+    <details class="more-info">
+      <summary>More info</summary>
+
+      <h3>Why AGENTS.md exists</h3>
+      <ul>
+        <li><strong>LLMs are stateless</strong> — each new conversation starts with no memory of previous interactions. Without explicit context, Bob must re-discover the codebase every time.</li>
+        <li><strong>/init solves this</strong> — it scans the project once and writes a structured summary Bob reads at the start of every conversation.</li>
+        <li><strong>Manually editable</strong> — add business rules, deployment conventions, or team practices that an automated scan wouldn't capture.</li>
+        <li><strong>Re-run after major changes</strong> — new modules, new frameworks, structural refactors, or when onboarding new team members.</li>
+      </ul>
+
+      <h3>Mode-specific context</h3>
+      <ul>
+        <li><strong>Each mode gets its own file</strong> — <code>/init</code> generates a dedicated AGENTS.md for Agent, Plan, and Ask modes inside <code>.bob/</code>.</li>
+        <li><strong>Targeted context</strong> — Plan mode emphasises architectural conventions; Agent mode highlights file structure and naming patterns.</li>
+        <li><strong>Extends the main file</strong> — mode-specific files add to the root <code>AGENTS.md</code>, not replace it.</li>
+      </ul>
+
+      <h3>Tips &amp; best practices</h3>
+      <ul>
+        <li>Commit <code>AGENTS.md</code> to version control — it is a team artefact that gives every contributor identical project context.</li>
+        <li>Keep entries actionable and concise; exhaustive documentation belongs in referenced files, not in AGENTS.md itself.</li>
+        <li>Re-run <code>/init</code> after adding new services, changing directory structure, or adopting new technologies.</li>
+      </ul>
+    </details>
+
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide/tutorials/start-a-project">Start a project with /init and AGENTS.md</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

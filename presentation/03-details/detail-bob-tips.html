@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Bob tips</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Bob tips">
+  <div class="detail-inner">
+    <div class="eyebrow">Key features</div>
+    <h2>Bob tips</h2>
+    <p>Bob tips continuously analyzes the files open in your editor and flags code quality issues at the function level. It runs in the background with no manual scan or configuration.</p>
+    <h3>What it detects</h3>
+    <ul>
+      <li><strong>High cyclomatic complexity:</strong> A value of 10 or higher, caused by deep nesting, many branches, or large switch statements.</li>
+      <li><strong>Low maintainability:</strong> A maintainability index of 70 or lower, often caused by long functions with too many responsibilities.</li>
+    </ul>
+    <h3>How you see it</h3>
+    <ul>
+      <li>The function gets a <strong>purple underline</strong> in your editor.</li>
+      <li>Hover over the underline to see the issue and AI-powered refactoring suggestions.</li>
+      <li>All findings are collected in the <strong>Bob Findings</strong> panel across your open files.</li>
+    </ul>
+    <h3>Act on a finding</h3>
+    <ul>
+      <li>Click <strong>Fix with Bob</strong> in the tooltip to open a chat with the issue as context.</li>
+      <li>Use <code>@problems</code> in chat to reference findings.</li>
+      <li>Turn the feature on or off in <strong>Bob Settings &#8594; Bob findings</strong>. Disabling it removes existing findings.</li>
+    </ul>
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide">Welcome to IBM Bob</a>, <a href="https://bob.ibm.com/docs/ide/features/bob-tips">Bob tips</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../03-key-features.html">&#8592; Back</a>
+</nav>
+
+<script src="../nav.js"></script>
+</body>
+</html>

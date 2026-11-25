@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Start Fresh</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Start Fresh">
+  <div class="detail-inner">
+    <div class="eyebrow">Context Window Management — Context Hygiene</div>
+    <h2>Start Fresh (<code>+</code>)</h2>
+    <p>Start a new task when switching topics or when a conversation stalls. This clears poisoned or bloated messages while preserving project files, rules, and skills on disk.</p>
+
+    <h3>When to start fresh</h3>
+    <ul>
+      <li>Switching to a different feature, bug, or codebase area mid-session.</li>
+      <li>Bob starts producing drift-y or inconsistent responses after many turns.</li>
+      <li>You've pasted large amounts of log output and want a clean slate.</li>
+      <li>The context indicator shows you are in the caution zone (&gt; 100k tokens).</li>
+    </ul>
+
+    <h3>What is preserved</h3>
+    <ul>
+      <li>All files on disk — source code, configs, test fixtures.</li>
+      <li><code>AGENTS.md</code> and all rule files in <code>.bob/rules/</code>.</li>
+      <li>Custom modes defined in <code>.bob/custom_modes.yaml</code>.</li>
+      <li>Installed skills and MCP server configurations.</li>
+    </ul>
+
+    <h3>What is cleared</h3>
+    <ul>
+      <li>The entire message transcript — every prompt, response, and tool output.</li>
+      <li>Any context you added with <code>@</code> mentions or clipboard pastes during the session.</li>
+    </ul>
+
+    <p class="source">Source: <a href="https://bob.ibm.com/docs/ide/core-concepts/context-window-management" target="_blank" rel="noopener noreferrer">IBM Bob Documentation – Context Window Management</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

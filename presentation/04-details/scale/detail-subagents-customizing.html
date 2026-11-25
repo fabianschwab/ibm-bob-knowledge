@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Subagents</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail blue" aria-label="Subagents">
+  <div class="detail-inner">
+    <div class="eyebrow">Customizing Bob — Scale</div>
+    <h2>Subagents</h2>
+
+    <h3>What they are</h3>
+    <p>A subagent is an independent Bob AI agent with its own isolated context window. It handles a clearly scoped, self-contained task and returns only a compact summary back to the parent conversation — keeping the main context clean and focused.</p>
+    <ul>
+      <li>Runs in complete isolation — no shared memory with the parent by default.</li>
+      <li>Two types: <strong>explore</strong> (read-only, lighter model) and <strong>general</strong> (full tool access, default model).</li>
+      <li>Set <code>fork_context: true</code> to pass the parent conversation history in when prior decisions matter.</li>
+    </ul>
+
+    <h3>How to use them</h3>
+    <ul>
+      <li><strong>Decompose the work:</strong> Break large tasks into clearly bounded sub-tasks so each subagent concentrates on one thing.</li>
+      <li><strong>Keep the main context lean:</strong> All intermediate steps happen inside the subagent — only the final summary comes back.</li>
+      <li><strong>Pass only what is needed:</strong> Provide a compact description rather than the full history unless history is essential.</li>
+      <li><strong>Enable subagents in modes:</strong> Add the <code>subagent</code> permission group to a custom mode's <code>groups</code> in <code>.bob/custom_modes.yaml</code>.</li>
+    </ul>
+
+    <h3>Trigger</h3>
+    <ul>
+      <li>Bob decides autonomously when to spawn one — you do not call subagents directly.</li>
+      <li>Bob only spawns a subagent when all three conditions are met: the task is self-contained, it would add significant irrelevant content to the main context, and it cannot be done in 1–2 direct tool calls.</li>
+      <li>You can auto-approve subagent spawning via the <strong>Subagent</strong> auto-approve setting (rated Low risk) to avoid being prompted each time.</li>
+      <li>Modes gate access — if the active mode does not include the <code>subagent</code> permission, Bob will not spawn one.</li>
+    </ul>
+
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide/features/subagents">Subagents</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../../04-customizing.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

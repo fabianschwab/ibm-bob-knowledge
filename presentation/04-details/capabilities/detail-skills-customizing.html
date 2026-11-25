@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Skills</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail blue" aria-label="Skills">
+  <div class="detail-inner">
+    <div class="eyebrow">Customizing Bob — Capabilities</div>
+    <h2>Skills</h2>
+    <p>Skills are reusable instruction sets that teach Bob new workflows and specialized tasks. Bob activates them automatically when the task matches — the base prompt stays lean while deep expertise is available on demand.</p>
+
+    <h3>Skill example &amp; directory structure</h3>
+    <div class="example-grid">
+      <div class="code-container">
+        <div class="code-header">
+          <span class="file-path">.bob/skills/code-review/SKILL.md</span>
+          <span class="file-badge">Markdown</span>
+        </div>
+        <pre class="code-body"><code><span class="syn-key">---</span>
+<span class="syn-tag">name:</span> <span class="syn-val">code-review</span>
+<span class="syn-tag">description:</span> <span class="syn-val">Review code for bugs, security</span>
+<span class="syn-val">  issues, and best practices</span>
+<span class="syn-key">---</span>
+
+<span class="syn-key">## Review checklist</span>
+<span class="syn-punct">-</span> <span class="syn-val">Check for security vulnerabilities</span>
+<span class="syn-punct">  </span><span class="syn-val">and XSS risks.</span>
+<span class="syn-punct">-</span> <span class="syn-val">Flag missing error handling at</span>
+<span class="syn-punct">  </span><span class="syn-val">API boundaries.</span>
+<span class="syn-punct">-</span> <span class="syn-val">Use severity guide in</span>
+<span class="syn-punct">  </span><span class="syn-str">severity-levels.md</span><span class="syn-val">.</span></code></pre>
+      </div>
+
+      <div class="tree-container">
+        <div class="code-header">
+          <span class="file-path">Skills Directory Structure</span>
+          <span class="file-badge">Files</span>
+        </div>
+        <pre class="tree-body"><code><span class="tree-folder">my-project/</span>
+├── <span class="tree-folder">.bob/</span>
+│   └── <span class="tree-folder">skills/</span>                  <span class="tree-comment"># Project-scoped skills</span>
+│       └── <span class="tree-folder">code-review/</span>
+│           ├── <span class="tree-file-primary">SKILL.md</span>         <span class="tree-comment"># Required — name + description</span>
+│           ├── <span class="tree-file">severity-levels.md</span>  <span class="tree-comment"># Linked reference file</span>
+│           └── <span class="tree-folder">scripts/</span>         <span class="tree-comment"># Optional utilities</span>
+
+<span class="tree-comment"># Global scope (across all workspaces):</span>
+<span class="tree-folder">~/.bob/</span>
+└── <span class="tree-folder">skills/</span>
+    └── <span class="tree-file-primary">my-global-skill/</span>         <span class="tree-comment"># Applied to every project</span></code></pre>
+      </div>
+    </div>
+
+    <details class="more-info">
+      <summary>More info</summary>
+
+      <h3>Why use skills</h3>
+      <ul>
+        <li><strong>Reusability</strong> — define a workflow once and use it across multiple conversations without repeating yourself.</li>
+        <li><strong>Consistency</strong> — Bob follows the same approach every time for specific tasks, reducing variation in output.</li>
+        <li><strong>Specialization</strong> — create domain-specific expertise for code reviews, testing, documentation, and more.</li>
+        <li><strong>Team collaboration</strong> — commit project skills to version control so the whole team benefits from the same standardized workflows.</li>
+      </ul>
+
+      <h3>Three-level loading</h3>
+      <ul>
+        <li><strong>Level 1 — YAML frontmatter:</strong> Always loaded. Just enough for Bob to decide whether to activate the skill. Keep <code>name</code> and <code>description</code> under 1 024 characters.</li>
+        <li><strong>Level 2 — SKILL.md body:</strong> Loaded when the skill matches the task. Full instructions and guidelines. Keep it under 5 000 words.</li>
+        <li><strong>Level 3 — Linked files:</strong> Loaded only when the specific task explicitly needs them. Place all non-essential reference material, templates, and scripts here.</li>
+      </ul>
+
+      <h3>Tips &amp; best practices</h3>
+      <ul>
+        <li>Write clear, specific descriptions — Bob relies on them to decide when to activate a skill. Avoid vague names like "code review skill".</li>
+        <li>Keep <code>SKILL.md</code> focused on the core workflow; move detailed checklists and examples to supporting files.</li>
+        <li>Create focused skills with a single responsibility rather than trying to cover multiple unrelated workflows in one file.</li>
+        <li>Project-level skills (<code>.bob/skills/</code>) take precedence over global skills (<code>~/.bob/skills/</code>) with the same name.</li>
+      </ul>
+    </details>
+
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide/features/skills">Skills</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

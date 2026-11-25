@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Trust Tests Over Text</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Trust Tests Over Text">
+  <div class="detail-inner">
+    <div class="eyebrow">Context Window Management — Context Hygiene</div>
+    <h2>Trust Tests Over Text</h2>
+    <p>Keep <code>AGENTS.md</code> short and operational. When comments and code disagree, point Bob at runnable test suites rather than long chat debates — tests are verifiable ground truth that don't bloat the window.</p>
+
+    <h3>The problem with long explanations</h3>
+    <ul>
+      <li>Lengthy <code>AGENTS.md</code> files and inline comment walls consume baseline overhead on every prompt.</li>
+      <li>Prose descriptions of "how the system works" can contradict actual code — Bob has no way to verify them.</li>
+      <li>Long chat debates about correctness generate transcript bloat without producing verifiable output.</li>
+    </ul>
+
+    <h3>Why tests are better context</h3>
+    <ul>
+      <li>A passing test suite is <strong>objective evidence</strong> — Bob can run it and observe the result directly.</li>
+      <li>Tests encode intent concisely: a 10-line test spec communicates more than a 200-line explanation.</li>
+      <li>Bob can iterate against tests without needing to hold the full architectural narrative in context.</li>
+    </ul>
+
+    <h3>Practical guidelines</h3>
+    <ul>
+      <li>Keep <code>AGENTS.md</code> focused on project conventions, commands, and constraints — not architecture lectures.</li>
+      <li>When Bob produces incorrect output, write or point to a failing test rather than re-explaining in chat.</li>
+      <li>Use short, focused rules files in <code>.bob/rules/</code> instead of ever-growing inline instructions.</li>
+    </ul>
+
+    <p class="source">Source: <a href="https://bob.ibm.com/docs/ide/core-concepts/context-window-management" target="_blank" rel="noopener noreferrer">IBM Bob Documentation – Context Window Management</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBM Bob – AI development environments compared</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .cmp-flows {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5vw;
+      margin-bottom: 4vh;
+    }
+
+    .cmp-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8vh;
+    }
+
+    .cmp-head {
+      background: var(--surface);
+      padding: 1.4vh 1.2vw;
+      border-top: 3px solid var(--accent);
+    }
+
+    .cmp-head.yellow { border-top-color: var(--accent-yellow); }
+    .cmp-head.green { border-top-color: var(--accent-green); }
+    .cmp-head.red { border-top-color: var(--accent-red); }
+
+    .cmp-head h3 {
+      font-size: clamp(16px, 1.6vw, 24px);
+      font-weight: 600;
+      margin-bottom: 0.5vh;
+    }
+
+    .cmp-head p {
+      font-size: clamp(12px, 1.05vw, 15px);
+      color: var(--text-subtle);
+      line-height: 1.4;
+    }
+
+    .cmp-actor {
+      text-align: center;
+      font-size: clamp(12px, 1.1vw, 16px);
+      color: var(--text-muted);
+      padding-top: 0.4vh;
+    }
+
+    .cmp-arrow {
+      text-align: center;
+      color: var(--text-faint);
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .cmp-col .card {
+      padding: 1.4vh 1.2vw;
+      flex: 1;
+    }
+
+    .cmp-col .card h4 {
+      padding-top: 0;
+      font-size: clamp(15px, 1.4vw, 20px);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .cmp-role {
+      font-size: clamp(12px, 1.05vw, 15px);
+      color: var(--text-subtle);
+      margin-bottom: 0.8vh;
+    }
+
+    .cmp-list {
+      list-style: disc;
+      padding-left: 1.2em;
+      display: grid;
+      gap: 0.4vh;
+      font-size: clamp(12px, 1.05vw, 15px);
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .cmp-llm {
+      background: var(--code-bg);
+      border: 1px solid var(--control);
+      padding: 1.4vh 1.2vw;
+    }
+
+    .cmp-llm h4 {
+      padding-top: 0;
+      font-size: clamp(13px, 1.2vw, 17px);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.8vh;
+    }
+
+    .cmp-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .cmp-chips span {
+      padding: 0.2em 0.7em;
+      background: var(--control);
+      color: var(--text);
+      font-size: clamp(11.5px, 1vw, 14px);
+    }
+
+    .cmp-note {
+      margin-top: 0.8vh;
+      font-size: clamp(11px, 0.95vw, 13px);
+      color: var(--text-faint);
+    }
+
+    /* Slide children must not shrink inside the scrolling flex column */
+    .slide.scroll > * {
+      flex-shrink: 0;
+    }
+
+    /* Comparison table */
+    .cmp-table-wrap {
+      overflow-x: auto;
+      margin-bottom: 4vh;
+    }
+
+    .cmp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: clamp(12px, 1.1vw, 16px);
+    }
+
+    .cmp-table th,
+    .cmp-table td {
+      text-align: left;
+      padding: 1vh 1vw;
+      color: var(--text-muted);
+    }
+
+    .cmp-table thead th {
+      background: var(--control);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .cmp-table tbody th {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .cmp-table tbody tr:nth-child(odd) {
+      background: var(--surface);
+    }
+
+    .cmp-yes { color: var(--link-green); font-weight: 600; }
+    .cmp-no { color: var(--link-red); font-weight: 600; }
+
+    /* Summary cards */
+    .cmp-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.5vw;
+    }
+
+    .cmp-summary .card {
+      padding: 1.6vh 1.2vw;
+    }
+
+    .cmp-summary .card h3 {
+      font-size: clamp(15px, 1.4vw, 20px);
+    }
+
+    .cmp-summary .card p {
+      font-size: clamp(12px, 1.05vw, 15px);
+    }
+
+    @media (max-width: 860px) {
+      .cmp-flows,
+      .cmp-summary {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="slide caps scroll" aria-label="AI development environments compared">
+    <h2>AI development environments compared</h2>
+    <p class="sub">AI-assisted software development. Different architecture, different strengths.</p>
+
+    <div class="cmp-flows">
+      <!-- OpenCode + OpenRouter -->
+      <div class="cmp-col">
+        <div class="cmp-head red">
+          <h3>OpenCode + OpenRouter</h3>
+          <p>Coding agent (open source) + LLM gateway (proprietary)</p>
+        </div>
+        <div class="cmp-actor">Developer / User</div>
+        <div class="cmp-arrow" aria-hidden="true">&#8595;</div>
+        <div class="card red">
+          <h4>OpenCode</h4>
+          <p class="cmp-role">Coding agent / IDE</p>
+          <ul class="cmp-list">
+            <li>Analyze and understand code</li>
+            <li>Read and edit files</li>
+            <li>Run terminal commands</li>
+            <li>Tests and debugging</li>
+            <li>Agentic workflows</li>
+          </ul>
+        </div>
+        <div class="cmp-arrow" aria-hidden="true">&#8595;</div>
+        <div class="card red">
+          <h4>OpenRouter</h4>
+          <p class="cmp-role">Model gateway</p>
+          <ul class="cmp-list">
+            <li>One API for many models</li>
+            <li>Routing and fallbacks</li>
+            <li>Switch models and providers</li>
+            <li>Not open source</li>
+          </ul>
+        </div>
+        <div class="cmp-arrow" aria-hidden="true">&#8595;</div>
+        <div class="cmp-llm">
+          <h4>Various LLMs</h4>
+          <div class="cmp-chips"><span>Claude</span><span>GPT</span><span>Gemini</span><span>Mistral</span><span>and more</span></div>
+        </div>
+      </div>
+
+      <!-- Mistral Vibe -->
+      <div class="cmp-col">
+        <div class="cmp-head yellow">
+          <h3>Mistral Vibe</h3>
+          <p>AI-assisted IDE (proprietary)</p>
+        </div>
+        <div class="cmp-actor">Developer / User</div>
+        <div class="cmp-arrow" aria-hidden="true">&#8595;</div>
+        <div class="card yellow">
+          <h4>Mistral Vibe</h4>
+          <p class="cmp-role">Coding agent / IDE</p>
+          <ul class="cmp-list">
+            <li>AI-assisted development</li>
+            <li>Generate and edit code</li>
+            <li>Terminal integration</li>
+            <li>Agentic capabilities</li>
+            <li>Focus on Mistral models</li>
+          </ul>
+        </div>
+        <div class="cmp-arrow" aria-hidden="true">&#8595;</div>
+        <div class="cmp-llm">
+          <h4>LLMs (primarily Mistral)</h4>
+          <div class="cmp-chips"><span>Mistral AI</span></div>
+          <p class="cmp-note">Possibly further models, depending on version</p>
+        </div>
+      </div>
+
+      <!-- IBM Bob + watsonx.ai -->
+      <div class="cmp-col">
+        <div class="cmp-head ">
+          <h3>IBM Bob + watsonx.ai</h3>
+          <p>AI development platform (proprietary) + model gateway (IBM)</p>
+        </div>
+        <div class="cmp-actor">Developer / User</div>
+        <div class="cmp-arrow" aria-hidden="true">&#8595;</div>
+        <div class="card blue">
+          <h4>IBM Bob</h4>
+          <p class="cmp-role">Coding agent / IDE</p>
+          <ul class="cmp-list">
+            <li>Generate and edit code</li>
+            <li>Full SDLC support</li>
+            <li>Integration into the IBM ecosystem</li>
+            <li>Governance and security built in</li>
+          </ul>
+        </div>
+        <div class="cmp-arrow" aria-hidden="true">&#8595;</div>
+        <div class="card blue">
+          <h4>watsonx.ai Model Gateway</h4>
+          <p class="cmp-role">Central AI interface</p>
+          <ul class="cmp-list">
+            <li>OpenAI-compatible API</li>
+            <li>Many models and providers</li>
+            <li>Routing and fallbacks</li>
+            <li>Governance, policies, audit, IAM</li>
+            <li>On-prem / hybrid / cloud</li>
+          </ul>
+        </div>
+        <div class="cmp-arrow" aria-hidden="true">&#8595;</div>
+        <div class="cmp-llm">
+          <h4>Various LLMs (incl. IBM Granite)</h4>
+          <div class="cmp-chips"><span>Granite</span><span>GPT</span><span>Claude</span><span>Mistral</span><span>and more</span></div>
+        </div>
+      </div>
+    </div>
+
+    
+<div class="harness-group">
+      <span class="harness-group-label">Summary</span>
+      <div class="cmp-table-wrap">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th scope="col">Feature</th>
+            <th scope="col">OpenCode</th>
+            <th scope="col">OpenRouter</th>
+            <th scope="col">Mistral Vibe</th>
+            <th scope="col">IBM Bob + watsonx</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Type</th>
+            <td>Open-source coding agent</td>
+            <td>Hosted LLM gateway</td>
+            <td>Open-source coding agent</td>
+            <td>Enterprise coding agent + model gateway</td>
+          </tr>
+          <tr>
+            <th scope="row">Open source</th>
+            <td><span class="cmp-yes" aria-label="Yes">&#10003;</span> Yes</td>
+            <td><span class="cmp-no" aria-label="No">&#10007;</span> No</td>
+            <td><span class="cmp-yes" aria-label="Yes">&#10003;</span> Yes - Apache 2.0</td>
+            <td><span class="cmp-no" aria-label="No">&#10007;</span> No - proprietary product</td>
+          </tr>
+          <tr>
+            <th scope="row">Self-hostable</th>
+            <td><span class="cmp-yes" aria-label="Yes">&#10003;</span> Yes - local installation and local models</td>
+            <td><span class="cmp-no" aria-label="No">&#10007;</span> Not as a self-hosted service</td>
+            <td><span class="cmp-yes" aria-label="Yes">&#10003;</span> Yes - local/offline operation, with additional enterprise deployment options</td>
+            <td><span class="cmp-yes" aria-label="Yes">&#10003;</span> Yes - self-hosted backend on Red Hat OpenShift</td>
+          </tr>
+          <tr>
+            <th scope="row">Model selection</th>
+            <td>Multiple providers; 75+ supported providers</td>
+            <td>500+ models across 80+ providers</td>
+            <td>Mistral models, compatible providers and locally hosted models</td>
+            <td>Supported cloud and self-hosted models; configuration depends on deployment</td>
+          </tr>
+          <tr>
+            <th scope="row">Governance / security</th>
+            <td>Enterprise configuration, SSO integration and internal AI gateways available</td>
+            <td>Hosted-service controls; assess data retention, provider routing and enterprise requirements</td>
+            <td>Configurable permissions, approvals and administrative controls; enterprise capabilities depend on deployment</td>
+            <td>Enterprise identity and security controls; audit and monitoring responsibilities depend on deployment</td>
+          </tr>
+          <tr>
+            <th scope="row">Enterprise / on-premises</th>
+            <td>Possible with local deployment and enterprise configuration</td>
+            <td>Primarily a hosted service</td>
+            <td>Local models supported; dedicated and self-hosted enterprise deployments also documented</td>
+            <td>Strong; self-hosted deployment on customer-managed OpenShift</td>
+          </tr>
+          <tr>
+            <th scope="row">API / integration</th>
+            <td>Connects to provider APIs, including OpenAI-compatible endpoints</td>
+            <td>OpenAI-compatible API</td>
+            <td>Connects to Mistral and compatible model-provider APIs</td>
+            <td>Model Gateway connects Bob to supported provider APIs</td>
+          </tr>
+          <tr>
+            <th scope="row">Primary target group</th>
+            <td>Developers and development teams</td>
+            <td>Developers, AI application builders and platform teams</td>
+            <td>Developers and development teams</td>
+            <td>Enterprise development teams and enterprise IT</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cmp-summary">
+      <div class="card red">
+        <h3>OpenCode</h3>
+        <p>The flexible, open-source coding agent for developers. Uses OpenRouter for access to many models.</p>
+      </div>
+      <div class="card red">
+        <h3>OpenRouter</h3>
+        <p>The central interface to 500+ models from 80+ providers. Simple. Flexible. Fast.</p>
+      </div>
+      <div class="card yellow">
+        <h3>Mistral Vibe</h3>
+        <p>The specialized AI coding assistant with a focus on Mistral models. Easy to use.</p>
+      </div>
+      <div class="card blue">
+        <h3>IBM Bob + watsonx</h3>
+        <p>The enterprise solution with comprehensive governance, security, and access to many models, including IBM Granite.</p>
+      </div>
+    </div>
+</div>
+  </section>
+
+  <nav class="nav" aria-label="Slide navigation">
+    <a rel="prev" aria-label="Previous slide" href="08-governance.html">&#8592;</a>
+    <span>9 / 11</span>
+    <a rel="next" aria-label="Next slide" href="10-on-prem-architecture.html">&#8594;</a>
+  </nav>
+
+  <script src="nav.js"></script>
+</body>
+
+</html>

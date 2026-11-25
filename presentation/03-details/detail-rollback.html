@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Rollback</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Rollback">
+  <div class="detail-inner">
+    <div class="eyebrow">Key features</div>
+    <h2>Rollback</h2>
+    <p>Rollback lets you try AI-suggested changes safely. Bob captures file snapshots during a task, separate from your version control, so you can always undo unwanted edits.</p>
+    <h3>What you need to know</h3>
+    <ul>
+      <li><strong>Automatic snapshots:</strong> Bob records one when a task begins and before every file modification.</li>
+      <li><strong>Task-scoped:</strong> Each snapshot belongs to a single task.</li>
+      <li><strong>Built into the chat:</strong> Rollback controls appear directly in the chat history.</li>
+    </ul>
+    <h3>How to use it</h3>
+    <ul>
+      <li><strong>See what changed:</strong> Expand the <em>Changed files</em> view after Bob edits files, use <em>Show all</em>, or click a file to see its diff.</li>
+      <li><strong>Undo to a message:</strong> Hover over a user message and click the rollback button to restore files to their state before that message.</li>
+      <li><strong>Undo one file:</strong> Click the rollback button on a file in the <em>Changed files</em> view.</li>
+    </ul>
+    <h3>Limitations</h3>
+    <ul>
+      <li>Only changes made during Bob tasks are captured. Manual edits and other tools are not.</li>
+      <li>Restoring overwrites any unsaved changes in your workspace.</li>
+      <li>Files ignored by <code>.gitignore</code>, build folders, binaries, and <code>.env</code> files are excluded.</li>
+      <li>Snapshots accumulate and use memory. Delete old task conversations to free it.</li>
+    </ul>
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide">Welcome to IBM Bob</a>, <a href="https://bob.ibm.com/docs/ide/features/rollback">Rollback</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../03-key-features.html">&#8592; Back</a>
+</nav>
+
+<script src="../nav.js"></script>
+</body>
+</html>

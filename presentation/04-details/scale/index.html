@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBM Bob – Scale</title>
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    /* ── Comparison table ── */
+    .scale-compare {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--text);
+    }
+    .scale-compare th,
+    .scale-compare td {
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--control);
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.4;
+    }
+    .scale-compare thead th {
+      background: var(--surface);
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+    .scale-compare tbody tr:nth-child(even) td {
+      background: var(--surface);
+    }
+    .scale-compare .col-label {
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .scale-compare .chip {
+      display: inline-block;
+      padding: 0.1rem 0.45rem;
+      border-radius: 3px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .chip-blue  { background: rgba(69,137,255,0.18); color: var(--accent); }
+    .chip-green { background: rgba(66,190,101,0.18); color: #42be65; }
+    .chip-gold  { background: rgba(255,214,0,0.18);  color: #f1c21b; }
+
+    /* ── Flow diagram ── */
+    .scale-section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      margin: 2rem 0 0.75rem;
+    }
+    .flow-wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0 1.25rem;
+      align-items: stretch;
+    }
+    .flow-lane {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: 1 / -1;
+      gap: 0.5rem 0;
+    }
+    /* Each lane spans all 7 shared rows: label, node, arrow, node, arrow, node */
+    .flow-wrap { grid-template-rows: auto auto auto auto auto auto auto; }
+    .flow-lane:nth-child(1) { grid-column: 1; }
+    .flow-lane:nth-child(2) { grid-column: 2; }
+    .flow-lane:nth-child(3) { grid-column: 3; }
+    .flow-node {
+      align-self: stretch;
+    }
+    .flow-lane-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px 4px 0 0;
+      text-align: center;
+    }
+    .lane-blue   { background: rgba(69,137,255,0.22); color: var(--accent); }
+    .lane-green  { background: rgba(66,190,101,0.22); color: #42be65; }
+    .lane-gold   { background: rgba(241,194,27,0.22); color: #f1c21b; }
+    .flow-node {
+      background: var(--surface);
+      border: 1px solid var(--control);
+      border-radius: 5px;
+      padding: 0.45rem 0.65rem;
+      font-size: 0.79rem;
+      line-height: 1.4;
+      color: var(--text-muted);
+      position: relative;
+    }
+    .flow-node strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.8rem;
+      margin-bottom: 0.15rem;
+    }
+    .flow-node::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      border-radius: 5px 0 0 5px;
+    }
+    .flow-lane:nth-child(1) .flow-node::before { background: var(--accent); }
+    .flow-lane:nth-child(2) .flow-node::before { background: #42be65; }
+    .flow-lane:nth-child(3) .flow-node::before { background: #f1c21b; }
+
+    .flow-arrow {
+      text-align: center;
+      color: var(--text-faint);
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .caps.scroll .compare-block {
+      padding: 0 2rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .compare-divider {
+      border: none;
+      border-top: 1px solid var(--control);
+      margin: 1.75rem 0 1.5rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="slide caps scroll" aria-label="Scale">
+    <div class="text-blue">Customizing Bob</div>
+    <h2>Scale</h2>
+    <p class="sub">Run structured, multi-step execution across your codebase.</p>
+
+    <div class="grid">
+      <a class="card blue" href="detail-subagents-customizing.html">
+        <h3>Subagents</h3>
+        <p>Subordinate Bob instances with isolated context windows. Delegate focused tasks and receive only a compact summary back.</p>
+      </a>
+      <a class="card blue" href="detail-workflow.html">
+        <h3>Workflow</h3>
+        <p>Pre-defined, curated multi-step processes for recurring tasks — triggered by slash command, UI, or natural language.</p>
+      </a>
+      <a class="card blue" href="detail-hooks.html">
+        <h3>Hooks</h3>
+        <p>Event-driven automation that runs shell commands or HTTP calls at lifecycle points — no AI involved, no manual trigger.</p>
+      </a>
+    </div>
+
+
+      
+
+      
+      <details class="more-info" style="margin-top: 2rem;">
+        <summary>Key differences at a glance</summary>
+
+        <!-- ── Flow diagram ── -->
+      <p class="scale-section-title" style="margin-top:1.75rem;">How each one gets started</p>
+
+      <div class="flow-wrap">
+
+        <!-- Subagent lane -->
+        <div class="flow-lane">
+          <div class="flow-lane-label lane-blue">🤖 Subagent</div>
+          <div class="flow-node">
+            <strong>You talk to Bob</strong>
+            Task is self-contained &amp; large
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node">
+            <strong>Bob decides</strong>
+            Would pollute context? Can't do in 1–2 calls?
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node">
+            <strong>Spawns subagent</strong>
+            Isolated context · Returns summary
+          </div>
+        </div>
+
+        <!-- Workflow lane -->
+        <div class="flow-lane">
+          <div class="flow-lane-label lane-green">🔁 Workflow</div>
+          <div class="flow-node">
+            <strong>You trigger</strong>
+            <code>/create-pr</code>, UI button, or natural language
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node">
+            <strong>Bob runs steps</strong>
+            Fixed playbook · Interactive checkpoints
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node">
+            <strong>Delivers result</strong>
+            PR created · Link returned
+          </div>
+        </div>
+
+        <!-- Hook lane -->
+        <div class="flow-lane">
+          <div class="flow-lane-label lane-gold">🪝 Hook</div>
+          <div class="flow-node">
+            <strong>Lifecycle event fires</strong>
+            e.g. <code>PostToolUse</code>, <code>PreToolUse</code>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node">
+            <strong>Matcher checked</strong>
+            Regex vs. tool name or session source
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node">
+            <strong>Shell / HTTP runs</strong>
+            No AI · Can block (exit 2) or audit
+          </div>
+        </div>
+
+      </div><!-- /.flow-wrap -->
+
+      <p class="scale-section-title" style="margin-top:1.75rem;">Compare</p>
+        <table class="scale-compare">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Subagent</th>
+              <th>Workflow</th>
+              <th>Hook</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-label">Who triggers it?</td>
+              <td>Bob (autonomous)</td>
+              <td>Bob or you (slash command / UI)</td>
+              <td>The system (lifecycle event)</td>
+            </tr>
+            <tr>
+              <td class="col-label">Runs AI?</td>
+              <td><span class="chip chip-green">✓ Yes</span> — full AI agent</td>
+              <td><span class="chip chip-green">✓ Yes</span> — AI-guided steps</td>
+              <td><span class="chip chip-gold">✗ No</span> — shell / HTTP only</td>
+            </tr>
+            <tr>
+              <td class="col-label">Interactive?</td>
+              <td>No — returns a summary</td>
+              <td>Yes — guides you through steps</td>
+              <td>No — fires and forgets</td>
+            </tr>
+            <tr>
+              <td class="col-label">Purpose</td>
+              <td>Offload self-contained exploration without polluting context</td>
+              <td>Structured recurring developer tasks (e.g. create PR)</td>
+              <td>Automate reactions to Bob's actions (lint, block, audit)</td>
+            </tr>
+            <tr>
+              <td class="col-label">Configured by?</td>
+              <td>Mode permissions (<code>subagent</code> group)</td>
+              <td>Built into Bob / marketplace</td>
+              <td><code>hooks</code> key in <code>settings.json</code></td>
+            </tr>
+            <tr>
+              <td class="col-label">Context aware?</td>
+              <td>Optionally (<code>fork_context: true</code>)</td>
+              <td>Yes — full conversation</td>
+              <td>Receives event payload via stdin / POST</td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+    </div><!-- /.compare-block -->
+
+  </section>
+
+  <nav class="nav" aria-label="Slide navigation">
+    <a class="back" rel="prev" href="../../04-customizing.html">&#8592; Back</a>
+  </nav>
+
+  <script src="../../nav.js"></script>
+</body>
+
+</html>

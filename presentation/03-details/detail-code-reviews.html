@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Code reviews</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Code reviews">
+  <div class="detail-inner">
+    <div class="eyebrow">Key features</div>
+    <h2>Code reviews</h2>
+    <p>The built-in Review workflow runs in your IDE. Bob reviews the diff between the branches you select and flags potential issues before you commit, so you can address reviewer comments early.</p>
+    <h3>Run a review</h3>
+    <ul>
+      <li><strong>Open the panel:</strong> Type <code>/review</code> in the chat or use the Review panel icon in the sidebar.</li>
+      <li><strong>Pick a branch to compare:</strong> Choose your current, default, remote, or any local branch.</li>
+      <li><strong>Include local work:</strong> Toggle <strong>Include Uncommitted Changes</strong> to review changes you haven't committed.</li>
+      <li><strong>Check an issue (optional):</strong> Select a GitHub issue to confirm your changes meet its requirements.</li>
+      <li><strong>Start:</strong> Click <strong>Start Review</strong>. Reviews run with auto-approval.</li>
+    </ul>
+    <h3>Work with the findings</h3>
+    <ul>
+      <li>Findings appear in the <strong>Bob Findings</strong> panel. Click one to see details and the annotated code.</li>
+      <li><strong>Fix with Bob</strong> creates a task to fix the issue. <strong>Dismiss</strong> removes a finding that isn't relevant.</li>
+      <li>Type <code>@problems</code> in the chat to resolve several issues at once.</li>
+    </ul>
+    <h3>Good to know</h3>
+    <ul>
+      <li>Branch comparison works with GitHub and GitLab. Issue validation requires GitHub.</li>
+      <li>Exclude files such as tests or generated code with glob patterns under <strong>Settings &#8594; Bob Findings &#8594; Review Exclusions</strong>.</li>
+      <li>Use Bob's review as a first pass before human review.</li>
+    </ul>
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide">Welcome to IBM Bob</a>, <a href="https://bob.ibm.com/docs/ide/features/code-reviews">Code reviews</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../03-key-features.html">&#8592; Back</a>
+</nav>
+
+<script src="../nav.js"></script>
+</body>
+</html>

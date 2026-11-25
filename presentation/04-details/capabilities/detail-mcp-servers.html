@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – MCP Servers</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail blue" aria-label="MCP Servers">
+  <div class="detail-inner">
+    <div class="eyebrow">Customizing Bob — Capabilities</div>
+    <h2>MCP Servers</h2>
+    <p>The Model Context Protocol is a standard that lets Bob connect to external systems. Once an MCP server is configured, Bob discovers its tools automatically and can use them as naturally as any built-in capability.</p>
+
+    <h3>MCP config example &amp; file locations</h3>
+    <div class="example-grid">
+      <div class="code-container">
+        <div class="code-header">
+          <span class="file-path">.bob/mcp.json</span>
+          <span class="file-badge">JSON</span>
+        </div>
+        <pre class="code-body"><code><span class="syn-punct">{</span>
+  <span class="syn-key">"mcpServers"</span><span class="syn-punct">: {</span>
+    <span class="syn-tag">"local-server"</span><span class="syn-punct">: {</span>
+      <span class="syn-key">"command"</span><span class="syn-punct">:</span> <span class="syn-str">"node"</span><span class="syn-punct">,</span>
+      <span class="syn-key">"args"</span><span class="syn-punct">:</span> <span class="syn-val">["server.js"]</span><span class="syn-punct">,</span>
+      <span class="syn-key">"env"</span><span class="syn-punct">: {</span>            <span class="syn-comment">← secrets here</span>
+        <span class="syn-tag">"API_KEY"</span><span class="syn-punct">:</span> <span class="syn-str">"your_api_key"</span>
+      <span class="syn-punct">},</span>
+      <span class="syn-key">"alwaysAllow"</span><span class="syn-punct">:</span> <span class="syn-val">["tool1"]</span>
+    <span class="syn-punct">},</span>
+    <span class="syn-tag">"remote-server"</span><span class="syn-punct">: {</span>
+      <span class="syn-key">"type"</span><span class="syn-punct">:</span> <span class="syn-str">"streamable-http"</span><span class="syn-punct">,</span>
+      <span class="syn-key">"url"</span><span class="syn-punct">:</span> <span class="syn-str">"https://your-server/mcp"</span>
+    <span class="syn-punct">}</span>
+  <span class="syn-punct">}</span>
+<span class="syn-punct">}</span></code></pre>
+      </div>
+
+      <div class="tree-container">
+        <div class="code-header">
+          <span class="file-path">MCP Config File Locations</span>
+          <span class="file-badge">Files</span>
+        </div>
+        <pre class="tree-body"><code><span class="tree-folder">my-project/</span>
+└── <span class="tree-folder">.bob/</span>
+    └── <span class="tree-file-primary">mcp.json</span>             <span class="tree-comment"># Project-scoped config</span>
+                              <span class="tree-comment"># Share via version control</span>
+
+<span class="tree-comment"># Global scope (across all workspaces):</span>
+<span class="tree-folder">~/.bob/settings/</span>
+└── <span class="tree-file-primary">mcp.json</span>             <span class="tree-comment"># Applies to every project</span>
+
+<span class="tree-comment"># Project config takes precedence</span>
+<span class="tree-comment"># when server names conflict.</span>
+
+<span class="tree-comment"># Never commit real secrets —</span>
+<span class="tree-comment"># use env vars or a secret store.</span></code></pre>
+      </div>
+    </div>
+
+    <details class="more-info">
+      <summary>More info</summary>
+
+      <h3>What you can connect</h3>
+      <ul>
+        <li><strong>Databases</strong> — query and write to SQL or NoSQL stores directly from a conversation.</li>
+        <li><strong>Ticket and project systems</strong> — read and create issues, link work to code changes.</li>
+        <li><strong>Browsers</strong> — automate web interactions, scrape content, or run end-to-end tests.</li>
+        <li><strong>Internal APIs</strong> — call proprietary services, enterprise platforms, or custom tooling.</li>
+      </ul>
+
+      <h3>Transport types</h3>
+      <ul>
+        <li><strong>STDIO (local):</strong> Bob launches the MCP server as a child process. Use <code>command</code>, <code>args</code>, and <code>env</code> fields. Best for developer tools and CLI-based integrations.</li>
+        <li><strong>Streamable HTTP (remote):</strong> Bob connects to a running server over HTTP/HTTPS using a <code>url</code> field. Best for shared services, enterprise systems, and cloud APIs.</li>
+      </ul>
+
+      <h3>Secrets &amp; security</h3>
+      <ul>
+        <li>Pass API keys and tokens via the <code>env</code> object — never hardcode credentials as literal strings in the config file.</li>
+        <li>Keep <code>mcp.json</code> files that contain real secret values out of version control; commit only a sanitised template.</li>
+        <li>Local MCP servers run with the same permissions as Bob and can access your file system — only install servers from trusted sources.</li>
+        <li>External MCP servers may send your data to third-party services; review their data handling policies before use.</li>
+      </ul>
+
+      <h3>Tips &amp; best practices</h3>
+      <ul>
+        <li>Disable unused MCP servers to reduce token usage — Bob removes all MCP definitions from the system prompt when a server is off.</li>
+        <li>Use <code>alwaysAllow</code> to auto-approve specific tools you trust, avoiding repeated confirmation prompts.</li>
+        <li>If an HTTP server times out, set <code>"protocolNegotiation": "legacy"</code> to skip the discovery probe.</li>
+        <li>Ask Bob to scaffold a new MCP server for you: <em>"Create an MCP tool that gets the current Bitcoin price."</em></li>
+      </ul>
+    </details>
+
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide/configuration/mcp/mcp-in-bob">Using MCP in Bob</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

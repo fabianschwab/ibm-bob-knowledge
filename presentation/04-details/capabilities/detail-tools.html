@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Tools</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Tools">
+  <div class="detail-inner">
+    <div class="eyebrow">Customizing Bob — Capabilities</div>
+    <h2>Tools</h2>
+    <p>Tools are the actions Bob can take. The model only produces text; a tool call is how that text becomes a real action — reading a file, editing code, running a command, or calling an external service. Every other customization either decides which tools Bob may use, adds new ones, or shapes how it uses them.</p>
+
+    <h3>What tools do</h3>
+    <ul>
+      <li><strong>Read</strong> — inspect files, directories, and code symbols to understand your project.</li>
+      <li><strong>Edit</strong> — create and modify files, optionally restricted to certain file patterns.</li>
+      <li><strong>Execute</strong> — run terminal commands such as builds, tests, and git operations.</li>
+      <li><strong>MCP</strong> — call tools provided by connected MCP servers: databases, APIs, ticket trackers.</li>
+      <li><strong>Orchestrate</strong> — load skills, track todos, start workflows and subtasks, spawn subagents, and switch modes.</li>
+    </ul>
+
+    <h3>How tools fit into customization</h3>
+    <div class="td-diagram" role="group" aria-label="Diagram: how modes, MCP servers, skills, and rules relate to Bob's tools">
+
+      <div class="td-row">
+        <div class="td-node purple">
+          <span class="td-tag">Controls access</span>
+          <h4>Custom modes</h4>
+          <p>Allow or deny each tool group per persona. Edits can be limited with <code>fileRegex</code>.</p>
+        </div>
+        <div class="td-node purple">
+          <span class="td-tag">Adds tools</span>
+          <h4>MCP servers</h4>
+          <p>Bring in tools Bob does not have built in, from external systems and APIs.</p>
+        </div>
+        <div class="td-node green">
+          <span class="td-tag">Guides usage</span>
+          <h4>Skills &amp; rules</h4>
+          <p>Instructions, not tools. They shape how Bob uses the tools it already has.</p>
+        </div>
+      </div>
+
+      <div class="td-arrows" aria-hidden="true">
+        <span>&#8595;</span><span>&#8595;</span><span>&#8595;</span>
+      </div>
+
+      <div class="td-core">
+        <div class="td-core-title">Bob's tools</div>
+        <ul class="td-chips">
+          <li>read</li>
+          <li>edit</li>
+          <li>execute</li>
+          <li>mcp</li>
+          <li>skill</li>
+          <li>workflow</li>
+          <li>todo</li>
+          <li>subtask</li>
+          <li>subagent</li>
+          <li>mode</li>
+        </ul>
+        <div class="td-core-note">A mode only exposes the groups it lists. Omit a group and Bob cannot use it.</div>
+      </div>
+
+      <div class="td-arrows single" aria-hidden="true">
+        <span>&#8595;</span>
+      </div>
+
+      <div class="td-row three">
+        <div class="td-out">Files &amp; code</div>
+        <div class="td-out">Terminal</div>
+        <div class="td-out">External services</div>
+      </div>
+    </div>
+
+    <h3>Example</h3>
+    <ul>
+      <li>A secure reviewer mode with <code>read</code> plus <code>mcp</code> access to a ticketing server, a "review checklist" skill, and no <code>edit</code> or <code>execute</code> access.</li>
+    </ul>
+
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide/core-concepts/tools">Understand Bob's tools</a>, <a href="https://bob.ibm.com/docs/ide/configuration/custom-modes">Custom Modes</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../../04-customizing.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

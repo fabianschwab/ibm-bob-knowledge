@@ -1,0 +1,4 @@
+# GitHub Pages configuration
+# Serves the /docs folder as the site root.
+# No Jekyll processing needed — pure static HTML.
+theme: null

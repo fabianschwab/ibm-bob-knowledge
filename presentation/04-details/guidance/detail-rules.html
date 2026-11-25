@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBM Bob – Rules</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+
+  <section class="slide detail blue" aria-label="Rules">
+    <div class="detail-inner">
+      <div class="eyebrow">Customizing Bob — Guidance</div>
+      <h2>Rules</h2>
+      <p>Rules influence how Bob responds and align its output with your specific preferences and project requirements.
+        They are applied automatically in every session — no prompting required.</p>
+
+      <h3>Rule example &amp; directory structure</h3>
+      <div class="example-grid">
+        <div class="code-container">
+          <div class="code-header">
+            <span class="file-path">.bob/rules/coding-standards.md</span>
+            <span class="file-badge">Markdown</span>
+          </div>
+          <pre
+            class="code-body"><code><span class="syn-key"># Project Standards &amp; Guidelines</span>
+
+<span class="syn-tag">## Code Quality</span>
+<span class="syn-punct">-</span> <span class="syn-val">Use TypeScript strict mode with explicit return types.</span>
+<span class="syn-punct">-</span> <span class="syn-val">Prefer pure functions and immutable data structures.</span>
+<span class="syn-punct">-</span> <span class="syn-val">Run </span><span class="syn-str">pnpm test</span><span class="syn-val"> and </span><span class="syn-str">pnpm lint</span><span class="syn-val"> before finishing changes.</span>
+
+<span class="syn-tag">## Communication &amp; Style</span>
+<span class="syn-punct">-</span> <span class="syn-val">Keep explanations direct, technical, and concise.</span>
+<span class="syn-punct">-</span> <span class="syn-val">Do not add unnecessary comments to self-evident code.</span>
+<span class="syn-punct">-</span> <span class="syn-val">Reference modified files with exact line numbers.</span></code></pre>
+        </div>
+
+        <div class="tree-container">
+          <div class="code-header">
+            <span class="file-path">Rules Directory Structure</span>
+            <span class="file-badge">Files</span>
+          </div>
+          <pre
+            class="tree-body"><code><span class="tree-folder">my-project/</span>
+├── <span class="tree-folder">.bob/</span>
+│   ├── <span class="tree-folder">rules/</span>                   <span class="tree-comment"># General rules (all modes)</span>
+│   │   ├── <span class="tree-file-primary">01-coding-style.md</span>   <span class="tree-comment"># Loaded alphabetically</span>
+│   │   └── <span class="tree-file">02-testing.md</span>
+│   └── <span class="tree-folder">rules-docs-writer/</span>       <span class="tree-comment"># Mode-scoped rules</span>
+│       └── <span class="tree-file">formatting.md</span>
+├── <span class="tree-file">.bobrules</span>                    <span class="tree-comment"># Single-file general alt</span>
+└── <span class="tree-file">.bobrules-docs-writer</span>        <span class="tree-comment"># Single-file mode alt</span>
+
+<span class="tree-comment"># Global scope (across all workspaces):</span>
+<span class="tree-folder">~/.bob/</span>
+└── <span class="tree-folder">rules/</span>
+    └── <span class="tree-file-primary">global-standards.md</span>      <span class="tree-comment"># Applied to every session</span></code></pre>
+        </div>
+      </div>
+
+      <details class="more-info">
+        <summary>More info</summary>
+
+        <h3>What rules cover</h3>
+        <ul>
+          <li><strong>Coding style and naming conventions</strong> — enforce your team's preferred patterns consistently
+            across all output.</li>
+          <li><strong>Documentation formats and standards</strong> — specify which comment style, README structure, or
+            API documentation format to follow.</li>
+          <li><strong>Testing methods</strong> — define which test framework to use, how to name test files, and what
+            coverage expectations apply.</li>
+          <li><strong>Project workflows and team conventions</strong> — describe branching strategies, commit message
+            formats, or review checklists.</li>
+          <li><strong>Company policies and guardrails</strong> — keep output inside security, compliance, or
+            data-handling boundaries.</li>
+        </ul>
+
+        <h3>Rule scopes &amp; file precedence</h3>
+        <ul>
+          <li><strong>General rules:</strong> Place files in <code>.bob/rules/</code> to apply across all modes in the
+            project.</li>
+          <li><strong>Mode-scoped rules:</strong> Place files in <code>.bob/rules-&lt;mode-slug&gt;/</code> to load only
+            when that specific mode is active.</li>
+          <li><strong>Global rules:</strong> Place files in <code>~/.bob/rules/</code> to apply across all workspaces on
+            your machine.</li>
+          <li><strong>File vs Directory:</strong> Directory structure (<code>.bob/rules/</code>) is preferred and takes
+            precedence over single files (<code>.bobrules</code>). Files load alphabetically.</li>
+        </ul>
+
+        <h3>Tips &amp; best practices</h3>
+        <ul>
+          <li>Keep each rule file focused and concise — Bob loads all rules in active scope into the context window at
+            session start.</li>
+          <li>Commit workspace rules to version control so every team member gets identical, standardized behavior.</li>
+          <li>Use mode-scoped rules to avoid loading constraints that only matter in specific workflows.</li>
+        </ul>
+      </details>
+
+      <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide/configuration/rules">Rules</a></p>
+    </div>
+  </section>
+
+  <nav class="nav" aria-label="Slide navigation">
+    <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+  </nav>
+
+  <script src="../../nav.js"></script>
+</body>
+
+</html>

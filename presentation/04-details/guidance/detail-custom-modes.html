@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Custom Modes</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail blue" aria-label="Custom Modes">
+  <div class="detail-inner">
+    <div class="eyebrow">Customizing Bob — Guidance</div>
+    <h2>Custom Modes</h2>
+    <p>Custom modes extend Bob by creating specialized personas tailored to specific workflows. Each mode combines a role definition, custom instructions, and deterministic tool permissions to ensure consistent and controlled execution.</p>
+
+    <h3>Configuration example &amp; directory structure</h3>
+    <div class="example-grid">
+      <div class="code-container">
+        <div class="code-header">
+          <span class="file-path">.bob/custom_modes.yaml</span>
+          <span class="file-badge">YAML</span>
+        </div>
+        <pre class="code-body"><code><span class="syn-key">customModes</span><span class="syn-punct">:</span>
+  <span class="syn-punct">-</span> <span class="syn-key">slug</span><span class="syn-punct">:</span> <span class="syn-str">docs-writer</span>
+    <span class="syn-key">name</span><span class="syn-punct">:</span> <span class="syn-str">📝 Documentation Writer</span>
+    <span class="syn-key">description</span><span class="syn-punct">:</span> <span class="syn-str">Writes and revises docs.</span>
+    <span class="syn-key">roleDefinition</span><span class="syn-punct">:</span> <span class="syn-tag">&gt;-</span>
+      <span class="syn-val">You are a technical writer specializing in</span>
+      <span class="syn-val">clear, accurate project documentation.</span>
+    <span class="syn-key">whenToUse</span><span class="syn-punct">:</span> <span class="syn-val">Use for creating and updating docs.</span>
+    <span class="syn-key">customInstructions</span><span class="syn-punct">:</span> <span class="syn-tag">|-</span>
+      <span class="syn-val">- Follow style guidelines strictly.</span>
+      <span class="syn-val">- Ensure all code paths are valid.</span>
+    <span class="syn-key">groups</span><span class="syn-punct">:</span>
+      <span class="syn-punct">-</span> <span class="syn-val">read</span>
+      <span class="syn-punct">-</span> <span class="syn-punct">-</span> <span class="syn-val">edit</span>
+        <span class="syn-punct">-</span> <span class="syn-key">fileRegex</span><span class="syn-punct">:</span> <span class="syn-str">".*\\.(md|mdx)$"</span>
+          <span class="syn-key">description</span><span class="syn-punct">:</span> <span class="syn-val">Markdown only</span>
+      <span class="syn-punct">-</span> <span class="syn-val">skill</span></code></pre>
+      </div>
+
+      <div class="tree-container">
+        <div class="code-header">
+          <span class="file-path">Project Folder Structure</span>
+          <span class="file-badge">Files</span>
+        </div>
+        <pre class="tree-body"><code><span class="tree-folder">my-project/</span>
+├── <span class="tree-folder">.bob/</span>
+│   ├── <span class="tree-file-primary">custom_modes.yaml</span>     <span class="tree-comment"># Mode definitions</span>
+│   └── <span class="tree-folder">rules-docs-writer/</span>    <span class="tree-comment"># Mode rules directory</span>
+│       ├── <span class="tree-file">01-style.md</span>       <span class="tree-comment"># Loaded alphabetically</span>
+│       └── <span class="tree-file">02-format.md</span>
+├── <span class="tree-file">.bobrules-docs-writer</span>     <span class="tree-comment"># Single-file alt</span>
+└── <span class="tree-folder">src/</span>
+
+<span class="tree-comment"># Global scope (~/.bob/settings/):</span>
+<span class="tree-folder">~/.bob/</span>
+└── <span class="tree-folder">settings/</span>
+    └── <span class="tree-file-primary">custom_modes.yaml</span>     <span class="tree-comment"># Global modes</span></code></pre>
+      </div>
+    </div>
+
+    <details class="more-info">
+      <summary>More info</summary>
+
+      <h3>Configuration files &amp; scope</h3>
+      <ul>
+        <li><strong>Workspace scope:</strong> Defined in <code>.bob/custom_modes.yaml</code> (available in the current project only).</li>
+        <li><strong>Global scope:</strong> Defined in <code>~/.bob/settings/custom_modes.yaml</code> (available across all workspaces).</li>
+        <li><strong>Settings UI:</strong> Create and manage modes via Bob Settings &rarr; <strong>Modes</strong> tab &rarr; <strong>Add</strong> or <strong>Edit Project Modes</strong>.</li>
+      </ul>
+
+      <h3>Core properties (<code>customModes</code>)</h3>
+      <ul>
+        <li><code>slug</code> (required) — Unique identifier (letters, digits, dashes: <code>^[a-zA-Z0-9-]+$</code>). Also registers a <code>/&lt;slug&gt;</code> slash command.</li>
+        <li><code>name</code> (required) — Display name shown in the UI mode picker.</li>
+        <li><code>roleDefinition</code> (required) — Core persona and system prompt defining identity, expertise, and operational boundaries.</li>
+        <li><code>whenToUse</code> (optional) — Tooltip guidance helping users and Bob select the right mode for the task.</li>
+        <li><code>description</code> (optional) — Short summary of the mode's purpose.</li>
+        <li><code>customInstructions</code> (optional) — Detailed behavioral guidelines appended to the system prompt.</li>
+        <li><code>groups</code> (optional) — Tool permission groups. Must be listed explicitly; omitting groups grants no tool access.</li>
+      </ul>
+
+      <h3>Tool permission groups</h3>
+      <ul>
+        <li><code>read</code> — Read files, directories, and code symbol lookups.</li>
+        <li><code>edit</code> — Modify and create files. Can be restricted to specific file patterns using <code>fileRegex</code> (e.g. <code>".*\\.(md|txt)$"</code>).</li>
+        <li><code>execute</code> — Run terminal and shell commands.</li>
+        <li><code>mcp</code> — Access configured Model Context Protocol (MCP) servers and tools.</li>
+        <li><code>skill</code> — Load and execute on-demand skills.</li>
+        <li><code>subagent</code>, <code>todo</code>, <code>workflow</code>, <code>mode</code> — Subagent spawning, checklist tracking, workflows, and mode switching.</li>
+      </ul>
+
+      <h3>Mode-specific rules</h3>
+      <ul>
+        <li><strong>Directory structure (preferred):</strong> Add rule files under <code>.bob/rules-&lt;mode-slug&gt;/</code> (e.g. <code>01-guidelines.md</code>), loaded alphabetically alongside <code>customInstructions</code>.</li>
+        <li><strong>Single file:</strong> Add a <code>.bobrules-&lt;mode-slug&gt;</code> file in the workspace root.</li>
+        <li><strong>Overriding defaults:</strong> Define a custom mode with the same slug as a built-in mode (e.g. <code>ask</code>, <code>plan</code>, <code>agent</code>) to override its default behavior.</li>
+      </ul>
+    </details>
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide/configuration/custom-modes">Custom Modes</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

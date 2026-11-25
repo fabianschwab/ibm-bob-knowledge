@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Transcript Bloat</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Transcript Bloat">
+  <div class="detail-inner">
+    <div class="eyebrow">Context Window Management — Context Risks</div>
+    <h2>Transcript Bloat</h2>
+    <p>Large single dumps — such as entire multi-megabyte log files or full directory reads — consume token headroom rapidly, leaving less space for reasoning and driving up latency.</p>
+
+    <h3>Common sources of bloat</h3>
+    <ul>
+      <li>Pasting complete log files or stack traces instead of the relevant excerpt.</li>
+      <li>Using broad <code>@src</code> folder mentions that inject thousands of lines at once.</li>
+      <li>Requesting full directory listings when only a handful of files are relevant.</li>
+      <li>Running commands that produce large stdout (e.g. <code>npm install</code> verbose output) without redirecting.</li>
+    </ul>
+
+    <h3>Why it matters</h3>
+    <ul>
+      <li>Every token consumed by raw data is a token <em>not</em> available for reasoning, planning, or tool output.</li>
+      <li>Bloat accelerates the onset of <strong>Lossy Condensation</strong> — Bob starts summarizing sooner.</li>
+      <li>Response latency increases because the model must process the full window on every turn.</li>
+    </ul>
+
+    <h3>Mitigation</h3>
+    <ul>
+      <li>Use targeted <code>@file.ts:45-67</code> line-range mentions instead of whole-file or whole-folder references.</li>
+      <li>Add context incrementally — start with a minimal reference and expand only if Bob needs more detail.</li>
+      <li>Prefer structured summaries (e.g. grep output, symbol overviews) over raw file dumps.</li>
+    </ul>
+
+    <p class="source">Source: <a href="https://bob.ibm.com/docs/ide/core-concepts/context-window-management" target="_blank" rel="noopener noreferrer">IBM Bob Documentation – Context Window Management</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="./index.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

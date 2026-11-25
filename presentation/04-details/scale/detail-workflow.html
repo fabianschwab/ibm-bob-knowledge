@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Workflow</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<section class="slide detail blue" aria-label="Workflow">
+  <div class="detail-inner">
+    <div class="eyebrow">Customizing Bob — Scale</div>
+    <h2>Workflow</h2>
+
+    <h3>What they are</h3>
+    <p>Workflows are pre-defined, curated, multi-step processes built into Bob for specific recurring tasks. They run a structured sequence of steps that Bob follows deterministically — not improvised from a prompt, but executed from a fixed playbook.</p>
+    <ul>
+      <li>Each workflow has named, ordered steps with guided interaction at key decision points.</li>
+      <li>Backed by the <code>start_workflow</code> tool internally.</li>
+      <li>Currently built-in: <strong>Create PR</strong> — selects branch, picks remote, generates description, creates the PR, and returns the link.</li>
+    </ul>
+
+    <h3>How to use them</h3>
+    <ul>
+      <li>Type <code>/create-pr</code> in the Bob chat — Bob walks you through each step interactively.</li>
+      <li>Bob also starts a workflow automatically when your plain-language request clearly matches a workflow's purpose.</li>
+      <li>Enable or restrict workflow access per mode via the <code>workflow</code> permission group in <code>.bob/custom_modes.yaml</code>.</li>
+      <li>Bob detects and applies your existing PR templates automatically when generating descriptions.</li>
+    </ul>
+
+    <h3>Trigger</h3>
+    <ul>
+      <li><strong>Slash command:</strong> Type <code>/create-pr</code> (or the relevant slash command) directly in the chat input.</li>
+      <li><strong>Command palette:</strong> <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> → search "Bob: Generate PR".</li>
+      <li><strong>Source Control panel:</strong> Click the PR icon to launch the workflow from the sidebar.</li>
+      <li><strong>Natural language:</strong> Bob recognises intent and starts the workflow automatically when the request matches.</li>
+    </ul>
+
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide/features/pull-requests">Pull requests</a> · <a href="https://bob.ibm.com/docs/ide">Welcome to IBM Bob</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../../04-customizing.html">&#8592; Back</a>
+</nav>
+
+<script src="../../nav.js"></script>
+</body>
+</html>

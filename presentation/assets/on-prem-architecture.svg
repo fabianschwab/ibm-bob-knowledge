@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 900" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#8d8d8d"/></marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4589ff"/></marker>
+    <marker id="arr-dim" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#525252"/></marker>
+    <marker id="arr-purple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#a56eff"/></marker>
+  </defs>
+  <rect width="1500" height="900" fill="#161616"/>
+
+  <!-- Developer environment -->
+  <text x="130" y="55" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="0.08em" fill="#8d8d8d">DEVELOPER ENVIRONMENT</text>
+  <rect x="25" y="70" width="210" height="190" fill="none" stroke="#393939" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <rect x="45" y="90" width="170" height="65" fill="#262626"/><rect x="45" y="90" width="3" height="65" fill="#4589ff"/>
+  <text x="62" y="115" font-size="13" font-weight="600" fill="#f4f4f4">Bob IDE</text><text x="62" y="133" font-size="12" fill="#a8a8a8">VS Code Extension</text><text x="62" y="147" font-size="10" fill="#6f6f6f">bob-ide</text>
+  <rect x="45" y="175" width="170" height="65" fill="#262626"/><rect x="45" y="175" width="3" height="65" fill="#4589ff"/>
+  <text x="62" y="200" font-size="13" font-weight="600" fill="#f4f4f4">Bob Shell</text><text x="62" y="218" font-size="12" fill="#a8a8a8">CLI</text><text x="62" y="232" font-size="10" fill="#6f6f6f">bob-shell</text>
+
+  <!-- OpenShift cluster -->
+  <rect x="280" y="75" width="930" height="735" fill="none" stroke="#393939" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="745" y="60" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="0.08em" fill="#8d8d8d">CUSTOMER OPENSHIFT CLUSTER</text>
+
+  <!-- Operator namespace -->
+  <rect x="310" y="115" width="250" height="235" fill="none" stroke="#525252" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="435" y="105" text-anchor="middle" font-size="11" fill="#6f6f6f" letter-spacing="0.06em">OPERATOR NAMESPACE</text>
+  <rect x="335" y="140" width="200" height="75" fill="#262626"/><rect x="335" y="140" width="3" height="75" fill="#a56eff"/>
+  <text x="355" y="168" font-size="13" font-weight="600" fill="#f4f4f4">Bob Operator</text><text x="355" y="187" font-size="12" fill="#a8a8a8">Kubernetes Operator</text><text x="355" y="203" font-size="10" fill="#6f6f6f">ibm-bob-operator</text>
+  <rect x="335" y="250" width="200" height="65" fill="#1c1c1c" stroke="#393939" stroke-width="1"/>
+  <text x="435" y="277" text-anchor="middle" font-size="12" font-weight="600" fill="#f4f4f4">Bob Custom Resource</text><text x="435" y="296" text-anchor="middle" font-size="11" fill="#6f6f6f">bob-instance</text>
+  <line x1="435" y1="215" x2="435" y2="247" stroke="#8d8d8d" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Instance namespace -->
+  <rect x="600" y="115" width="580" height="650" fill="none" stroke="#525252" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="890" y="105" text-anchor="middle" font-size="11" fill="#6f6f6f" letter-spacing="0.06em">INSTANCE NAMESPACE</text>
+
+  <!-- Service cards: left column -->
+  <rect x="640" y="150" width="210" height="75" fill="#262626"/><rect x="640" y="150" width="3" height="75" fill="#4589ff"/>
+  <text x="660" y="178" font-size="13" font-weight="600" fill="#f4f4f4">API Gateway</text><text x="660" y="197" font-size="12" fill="#a8a8a8">Ingress · HTTPS</text><text x="660" y="213" font-size="10" fill="#6f6f6f">port 443</text>
+  <rect x="640" y="275" width="210" height="70" fill="#262626"/><rect x="640" y="275" width="3" height="70" fill="#4589ff"/>
+  <text x="660" y="302" font-size="13" font-weight="600" fill="#f4f4f4">Bob Frontend/UI</text><text x="660" y="321" font-size="12" fill="#a8a8a8">Web Interface</text><text x="660" y="336" font-size="10" fill="#6f6f6f">bob-ui</text>
+  <rect x="640" y="395" width="210" height="75" fill="#262626"/><rect x="640" y="395" width="3" height="75" fill="#4589ff"/>
+  <text x="660" y="423" font-size="13" font-weight="600" fill="#f4f4f4">Backend Services</text><text x="660" y="442" font-size="12" fill="#a8a8a8">Job &amp; Task Handling</text><text x="660" y="458" font-size="10" fill="#6f6f6f">bob-backend</text>
+
+  <!-- Service cards: right column -->
+  <rect x="925" y="275" width="210" height="70" fill="#262626"/><rect x="925" y="275" width="3" height="70" fill="#24a148"/>
+  <text x="945" y="302" font-size="13" font-weight="600" fill="#f4f4f4">PostgreSQL</text><text x="945" y="321" font-size="12" fill="#a8a8a8">Database</text><text x="945" y="336" font-size="10" fill="#6f6f6f">PV · RWO</text>
+  <rect x="925" y="395" width="210" height="75" fill="#262626"/><rect x="925" y="395" width="3" height="75" fill="#24a148"/>
+  <text x="945" y="423" font-size="13" font-weight="600" fill="#f4f4f4">OpenSearch</text><text x="945" y="442" font-size="12" fill="#a8a8a8">Search Index</text><text x="945" y="458" font-size="10" fill="#6f6f6f">PV · RWO</text>
+  <rect x="925" y="515" width="210" height="75" fill="#262626"/><rect x="925" y="515" width="3" height="75" fill="#f1c21b"/>
+  <text x="945" y="543" font-size="13" font-weight="600" fill="#f4f4f4">Keycloak</text><text x="945" y="562" font-size="12" fill="#a8a8a8">Identity Provider</text><text x="945" y="578" font-size="10" fill="#6f6f6f">LDAP · IDP</text>
+  <rect x="925" y="635" width="210" height="70" fill="#262626"/><rect x="925" y="635" width="3" height="70" fill="#24a148"/>
+  <text x="945" y="662" font-size="13" font-weight="600" fill="#f4f4f4">Redis</text><text x="945" y="681" font-size="12" fill="#a8a8a8">Cache</text><text x="945" y="696" font-size="10" fill="#6f6f6f">In-Memory</text>
+  <rect x="640" y="650" width="230" height="70" fill="#1c1c1c" stroke="#393939" stroke-width="1"/>
+  <text x="755" y="677" text-anchor="middle" font-size="13" font-weight="600" fill="#f4f4f4">Private Image Registry</text><text x="755" y="696" text-anchor="middle" font-size="12" fill="#a8a8a8">Container Registry</text><text x="755" y="711" text-anchor="middle" font-size="10" fill="#6f6f6f">Air-Gap / Internal</text>
+
+  <!-- Model server outside the cluster -->
+  <rect x="1260" y="145" width="215" height="155" fill="none" stroke="#393939" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="1367" y="132" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="0.06em" fill="#8d8d8d">MODEL SERVER (AI)</text>
+  <rect x="1280" y="165" width="175" height="115" fill="#262626"/><rect x="1280" y="165" width="3" height="115" fill="#a56eff"/>
+  <text x="1300" y="192" font-size="13" font-weight="600" fill="#f4f4f4">LLM Endpoint(s)</text><text x="1300" y="212" font-size="12" fill="#a8a8a8">Model Inference</text><text x="1300" y="231" font-size="12" fill="#a8a8a8">GPT · Granite</text><text x="1300" y="250" font-size="10" fill="#6f6f6f">port 443</text>
+
+  <!-- Developer HTTPS routes: separate lanes above the cluster cards -->
+  <polyline points="215,122 255,122 255,82 625,82 625,170 637,170" fill="none" stroke="#4589ff" stroke-width="1.6" marker-end="url(#arr-blue)"/>
+  <polyline points="215,207 270,207 270,92 610,92 610,205 637,205" fill="none" stroke="#4589ff" stroke-width="1.6" marker-end="url(#arr-blue)"/>
+
+  <!-- Operator-managed instance relationship -->
+  <polyline points="535,282 575,282 575,185 637,185" fill="none" stroke="#525252" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arr-dim)"/>
+
+  <!-- Internal service calls: independent, non-overlapping routes -->
+  <polyline points="850,188 885,188 885,432 922,432" fill="none" stroke="#8d8d8d" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="894" y="310" font-size="10" fill="#8d8d8d" transform="rotate(90 894 310)">internal</text>
+  <polyline points="850,310 885,310 922,310" fill="none" stroke="#525252" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arr-dim)"/>
+  <polyline points="850,432 885,432 885,552 922,552" fill="none" stroke="#525252" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arr-dim)"/>
+  <polyline points="850,432 900,432 900,670 922,670" fill="none" stroke="#525252" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arr-dim)"/>
+
+  <!-- Gateway to external model endpoint -->
+  <polyline points="850,165 875,145 1235,145 1235,222 1277,222" fill="none" stroke="#a56eff" stroke-width="1.6" stroke-dasharray="6 3" marker-end="url(#arr-purple)"/>
+  <text x="1055" y="135" text-anchor="middle" font-size="11" fill="#be95ff">Model Inference (e.g. GPT)</text>
+
+  <!-- Registry / image flow back to operator resource -->
+  <polyline points="640,685 590,685 590,755 295,755 295,315 332,315" fill="none" stroke="#525252" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arr-dim)"/>
+  <text x="440" y="746" text-anchor="middle" font-size="11" fill="#6f6f6f">Images</text>
+
+  <!-- Legend -->
+  <rect x="25" y="825" width="1450" height="60" fill="#1c1c1c" stroke="#393939" stroke-width="1"/>
+  <text x="45" y="847" font-size="10" font-weight="600" letter-spacing="0.08em" fill="#6f6f6f">LEGEND</text>
+  <line x1="45" y1="866" x2="85" y2="866" stroke="#4589ff" stroke-width="1.6" marker-end="url(#arr-blue)"/><text x="95" y="870" font-size="11" fill="#a8a8a8">HTTPS (Developer → Gateway)</text>
+  <line x1="350" y1="866" x2="390" y2="866" stroke="#a56eff" stroke-width="1.6" stroke-dasharray="6 3" marker-end="url(#arr-purple)"/><text x="400" y="870" font-size="11" fill="#a8a8a8">Model Inference (Gateway → LLM)</text>
+  <line x1="700" y1="866" x2="740" y2="866" stroke="#8d8d8d" stroke-width="1.5" marker-end="url(#arr)"/><text x="750" y="870" font-size="11" fill="#a8a8a8">Internal API Calls</text>
+  <line x1="1010" y1="866" x2="1050" y2="866" stroke="#525252" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arr-dim)"/><text x="1060" y="870" font-size="11" fill="#a8a8a8">Kubernetes Resources (Operator / Registry)</text>
+</svg>

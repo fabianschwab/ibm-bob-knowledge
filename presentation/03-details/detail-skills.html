@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Skills</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Skills">
+  <div class="detail-inner">
+    <div class="eyebrow">Key features</div>
+    <h2>Skills</h2>
+    <p>Skills are reusable instruction sets, like recipes, that teach Bob a specialized workflow. Bob follows them the same way every time, for tasks such as code reviews, testing, or documentation.</p>
+    <h3>Create a skill</h3>
+    <ul>
+      <li>Create a folder in <code>.bob/skills/</code> in your project, or in <code>~/.bob/skills/</code> for a global skill.</li>
+      <li>Add a <code>SKILL.md</code> file with YAML front matter containing <code>name</code> and <code>description</code>.</li>
+      <li>Write the instructions below the front matter as clear, actionable steps.</li>
+      <li>Add optional supporting files such as checklists, templates, and scripts next to it.</li>
+    </ul>
+    <h3>How skills run</h3>
+    <ul>
+      <li>Bob decides when to activate a skill based on your request and the skill's <strong>description</strong>. A skill without a description is ignored.</li>
+      <li>Skills load once per conversation.</li>
+      <li>Bob asks for your permission first. To skip this, turn on <strong>Skills</strong> in the Auto-Approve settings.</li>
+      <li>If a project skill and a global skill share a name, the project skill wins.</li>
+    </ul>
+    <h3>Tips</h3>
+    <ul>
+      <li>Write a precise description, such as "Review code for bugs, security issues, and best practices".</li>
+      <li>Keep each skill focused on one task, and put detail into supporting files.</li>
+      <li>Commit project skills to version control to share them with your team.</li>
+      <li>The Skills tab in Bob Settings shows which skills are loaded.</li>
+    </ul>
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide">Welcome to IBM Bob</a>, <a href="https://bob.ibm.com/docs/ide/features/skills">Skills</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../03-key-features.html">&#8592; Back</a>
+</nav>
+
+<script src="../nav.js"></script>
+</body>
+</html>

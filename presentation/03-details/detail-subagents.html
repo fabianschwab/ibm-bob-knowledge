@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Bob – Subagents</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<section class="slide detail purple" aria-label="Subagents">
+  <div class="detail-inner">
+    <div class="eyebrow">Key features</div>
+    <h2>Subagents</h2>
+    <p>A subagent is an independent agent that Bob spawns for a focused, self-contained task. It works in its own context window and returns only a summary, which keeps your main conversation clean.</p>
+    <h3>What you need to know</h3>
+    <ul>
+      <li><strong>You approve the spawn:</strong> Bob asks for confirmation before a subagent starts.</li>
+      <li><strong>Isolated context:</strong> A subagent does not see your conversation history unless Bob explicitly passes it in.</li>
+      <li><strong>Used sparingly:</strong> Bob works directly by default and only uses a subagent for self-contained work that would add a lot of irrelevant content to the main context.</li>
+      <li><strong>Mode limits:</strong> The active mode controls which subagent types Bob may spawn.</li>
+    </ul>
+    <h3>Subagent types</h3>
+    <ul>
+      <li><strong>explore:</strong> Read-only codebase exploration on a lighter model. Best for searching, summarizing code, and finding files.</li>
+      <li><strong>general:</strong> Full tool access on the default model. Best for any self-contained task that reads, writes, or runs commands.</li>
+    </ul>
+    <h3>Subagents vs. subtasks</h3>
+    <ul>
+      <li><strong>Subagent:</strong> Runs in the background, is not interactive, and returns a summary.</li>
+      <li><strong>Subtask:</strong> Appears in the UI with its own conversation, and you can follow and continue it.</li>
+      <li>Several parallel subagents are grouped into one collapsible panel that shows combined tool use, tokens, cost, and time.</li>
+    </ul>
+    <p class="source">Sources: <a href="https://bob.ibm.com/docs/ide">Welcome to IBM Bob</a>, <a href="https://bob.ibm.com/docs/ide/features/subagents">Subagents</a></p>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="back" rel="prev" href="../03-key-features.html">&#8592; Back</a>
+</nav>
+
+<script src="../nav.js"></script>
+</body>
+</html>
