@@ -8,8 +8,6 @@ A collection of material for presenting, demonstrating and installing [IBM Bob](
 | [`on-prem-install/`](on-prem-install/) | Docs and architecture for an air-gapped, self-hosted Bob install on OpenShift |
 | [`bob-hooks-example/`](bob-hooks-example/) | Live demo of Bob lifecycle hooks with a dashboard |
 
-The root also holds two PDFs (`Bob Roadmap - 2026.PDF`, `Bob TechZone Environment.pdf`) and a [`.bob/`](.bob/) folder with the project's own Bob configuration (custom modes, MCP, hooks).
-
 ## Presentation
 
 [`presentation/`](presentation/) is a static, browser-based slide deck (11 slides, plain HTML/CSS with [`nav.js`](presentation/nav.js) for arrow navigation). Open [`01-welcome.html`](presentation/01-welcome.html) to start.
